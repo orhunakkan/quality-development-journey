@@ -1,0 +1,19 @@
+{
+  "name": "cypress-javascript",
+  "version": "1.0.0",
+  "description": "Cypress-JavaScript Framework",
+  "license": "ISC",
+  "author": "Orhun Akkan",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {},
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "cypress": "^15.0.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.0.0",
+    "mochawesome": "^7.1.3",
+    "prettier": "^3.6.2"
+  }
+}

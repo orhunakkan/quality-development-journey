@@ -1,0 +1,10 @@
+node_modules/
+build/
+coverage/
+*.min.js
+package-lock.json
+yarn.lock
+*.log
+.git/
+playwright-report/
+test-results/
