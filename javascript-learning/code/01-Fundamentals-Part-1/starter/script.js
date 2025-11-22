@@ -74,18 +74,18 @@ const myAge = 15;
 const isOldEnough = myAge >= 18;
 
 if (isOldEnough) {
-  console.log(`Orhun can start driving`);
+    console.log(`Orhun can start driving`);
 } else {
-  console.log(`Nope, not yet`);
+    console.log(`Nope, not yet`);
 }
 
 let century;
 const yourBirthYear = 1990;
 
 if (yourBirthYear <= 2000) {
-  century = 20;
+    century = 20;
 } else {
-  century = 21;
+    century = 21;
 }
 
 console.log(century);
@@ -121,15 +121,72 @@ console.log(Boolean(35));
 const money = 100;
 
 if (money) {
-  console.log('DO NOT SPEND');
+    console.log('DO NOT SPEND');
 } else {
-  console.log('GET A JOB');
+    console.log('GET A JOB');
 }
 
 let height;
 
 if (height) {
-  console.log('IT IS DEFINED!');
+    console.log('IT IS DEFINED!');
 } else {
-  console.log('IT IS NOT DEFINED!');
+    console.log('IT IS NOT DEFINED!');
 }
+
+const theAge = 17;
+
+if (theAge === 18) console.log('You are eligible (strict equality)');
+if (theAge == 18) console.log('You are eligible (loose equality)');
+
+if (theAge !== 18) console.log('You are NOT eligible (strict equality)');
+if (theAge != 18) console.log('You are NOT eligible (loose equality)');
+
+if (theAge < 17) {
+    console.log('YOUNG')
+} else if (theAge > 17) {
+    console.log('OLD')
+}
+
+const hasDriversLicense = true;
+const hasGoodVision = false;
+
+console.log(hasDriversLicense || hasGoodVision);
+console.log(hasDriversLicense && hasGoodVision);
+console.log(!hasDriversLicense);
+
+// Switch Statement
+
+const day = 'Monday';
+
+switch (day) {
+    case 'Monday':
+        console.log('Monday is bad');
+        break;
+    case 'Tuesday':
+        console.log('Tuesday is meh');
+        break;
+    case 'Wednesday':
+        console.log('Wednesday is ok');
+        break;
+    case 'Thursday':
+        console.log('Thursday is good');
+        break;
+    case 'Friday':
+        console.log('Friday is the best');
+        break;
+    case 'Saturday':
+        console.log('Saturday is good');
+        break;
+    case 'Sunday':
+        console.log('Sunday is meh');
+        break;
+    default:
+        console.log('Not a valid day!')
+}
+
+// Ternary Operator
+
+const luckyNumber = 35;
+const theNumber = luckyNumber >= 18 ? 'WHAT?' : 'HA'; // -> This is an expression not a statement like if
+console.log(theNumber);
