@@ -6,7 +6,9 @@
   "author": "Orhun Akkan",
   "main": "index.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "cy:run": "node ./cypress/utilities/cross-browser.js"
+  },
   "dependencies": {
     "dotenv": "^17.2.3",
     "cypress": "^15.7.0"
