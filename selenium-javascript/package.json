@@ -13,7 +13,6 @@
     "selenium-webdriver": "4.38.0"
   },
   "devDependencies": {
-    "@types/selenium-webdriver": "^4.35.4",
     "@faker-js/faker": "^10.1.0",
     "chai": "^6.2.1",
     "mocha": "^11.7.5",
