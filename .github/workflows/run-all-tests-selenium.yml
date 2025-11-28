@@ -1,4 +1,4 @@
-name: All tests
+name: Run All Tests Selenium
 
 on:
   push:
