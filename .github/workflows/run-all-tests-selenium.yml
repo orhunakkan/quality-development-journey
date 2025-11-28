@@ -9,16 +9,16 @@ on:
 
 jobs:
   all-tests:
-    name: Node 22 Version Check
+    name: Node 24 Version Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 22
+      - name: Setup Node.js 24
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "24"
 
       - name: Verify Node.js
         run: node -v
