@@ -1,18 +1,11 @@
-ARG PLAYWRIGHT_VERSION=1.56.1
-FROM mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble
+FROM node:18-alpine
 
-WORKDIR /work
+WORKDIR /app
 
-# Install deps first for better layer caching
-COPY package.json package-lock.json* ./
-# Browsers and OS deps are already in the base image; skip postinstall scripts
-RUN npm ci --ignore-scripts --no-audit --no-fund
+COPY package*.json ./
 
-# Copy the rest of the repo
+RUN npm ci
+
 COPY . .
 
-# Ensure CI-like behavior for retries, screenshots, videos per playwright.config.ts
-ENV CI=1
-
-# Default command (override with `docker run ... <cmd>` or in compose)
 CMD ["npm", "test"]
