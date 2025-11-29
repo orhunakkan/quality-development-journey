@@ -31,4 +31,4 @@ jobs:
           PROD_URL: https://bonigarcia.dev/selenium-webdriver-java
           UAT_URL: https://uat.bonigarcia.dev/selenium-webdriver-java
           STAGING_URL: https://staging.bonigarcia.dev/selenium-webdriver-java
-        run: npx mocha tests/e2e --timeout 30000
+        run: npx mocha tests/e2e
