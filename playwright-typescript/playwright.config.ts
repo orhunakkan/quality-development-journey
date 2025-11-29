@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { getBaseUrl } from './utilities/environments';
 
 export default defineConfig({
   testDir: './tests',
@@ -10,7 +11,7 @@ export default defineConfig({
   reporter: [['list'], ['html'], ['json', { outputFile: 'test-results/report.json' }]],
   outputDir: 'test-results',
   use: {
-    baseURL: process.env.ENV,
+    baseURL: getBaseUrl(),
     trace: 'on-first-retry',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
@@ -20,6 +21,16 @@ export default defineConfig({
     {
       name: 'Desktop Chrome',
       use: { ...devices['Desktop Chrome'] },
+    },
+
+    {
+      name: 'Desktop Firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+
+    {
+      name: 'Desktop Edge',
+      use: { ...devices['Desktop Edge'] },
     },
   ],
 });
