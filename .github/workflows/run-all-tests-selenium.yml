@@ -9,7 +9,7 @@ on:
 
 jobs:
   all-tests:
-    name: Node 24 Version Check
+    name: Run All Selenium Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,9 +19,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24"
-
-      - name: Verify Node.js
-        run: node -v
 
       - name: Install dependencies
         working-directory: ./selenium-javascript
