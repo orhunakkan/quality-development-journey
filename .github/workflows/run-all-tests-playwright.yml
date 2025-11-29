@@ -23,7 +23,14 @@ jobs:
       - name: Verify Node.js
         run: node -v
 
-      - name: Always-passing script
-        run: |
-          # simple Node one-liner that prints a message and exits successfully
-          node -e "console.log('always passing tests - ok'); process.exit(0)"
+      - name: Install dependencies
+        working-directory: ./playwright-typescript
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: ./playwright-typescript
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        working-directory: ./playwright-typescript
+        run: npx playwright test

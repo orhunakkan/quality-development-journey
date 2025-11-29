@@ -23,7 +23,10 @@ jobs:
       - name: Verify Node.js
         run: node -v
 
-      - name: Always-passing script
-        run: |
-          # simple Node one-liner that prints a message and exits successfully
-          node -e "console.log('always passing tests - ok'); process.exit(0)"
+      - name: Install dependencies
+        working-directory: ./selenium-javascript
+        run: npm ci
+
+      - name: Run Selenium tests
+        working-directory: ./selenium-javascript
+        run: npx mocha tests/e2e
