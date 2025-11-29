@@ -1,4 +1,5 @@
 import cypress from 'cypress';
+import { getBaseUrl } from './environments.js';
 
 const spec = 'cypress/tests/e2e/**/*.cy.{js,jsx,ts,tsx}';
 const browsers = ['chrome', 'edge', 'firefox'];
@@ -13,6 +14,10 @@ const isSuccessful = (runResult) => {
     return true;
 };
 
+const baseUrl = getBaseUrl();
+const environment = process.env.ENV || 'prod';
+console.log(`\nRunning tests against ${environment.toUpperCase()} environment: ${baseUrl}\n`);
+
 for (const browser of browsers) {
     console.log(`\nRunning ${spec} in ${browser} (headless)...`);
 
@@ -21,6 +26,9 @@ for (const browser of browsers) {
             browser,
             headless: true,
             spec,
+            config: {
+                baseUrl,
+            },
         });
 
         const success = isSuccessful(runResult);
