@@ -66,6 +66,15 @@ export async function createDriver({
         pageLoad: pageLoadTimeoutMs,
     });
 
+    // Patch driver.get to resolve '/' to the base URL
+    const { getBaseUrl } = await import('./environments.js');
+    const originalGet = driver.get.bind(driver);
+    driver.get = async function (url) {
+        if (url === '/') {
+            url = getBaseUrl();
+        }
+        return originalGet(url);
+    };
     return driver;
 }
 
