@@ -1,2 +1,38 @@
 'use strict';
 
+function logger () {
+    console.log('THIS IS ORHUN');
+}
+
+// calling / running / invoking function
+logger();
+
+
+function fruitProcessor (apples, oranges) {
+    const juice = `Juice with ${apples} apples and ${oranges} oranges.`
+    return juice;
+}
+
+const myJuice = fruitProcessor(5, 10);
+console.log(myJuice);
+
+// Function Declaration
+function calcage1 (birthYear) {
+    const age = 2025 - birthYear;
+    return age;
+}
+
+const age1 = calcage1(1990);
+console.log(age1);
+
+// Function Expression -> with this you need to create the functions at the top so that you can call them later.
+
+const calcage2  = function (birthYear) {
+    return 2025 - birthYear;
+}
+
+const age2 = calcage2(1990);
+
+console.log(age1, age2);
+
+
