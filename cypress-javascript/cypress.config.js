@@ -1,11 +1,21 @@
 import { defineConfig } from 'cypress';
 import { getBaseUrl } from './cypress/utilities/environments.js';
+import 'cypress-mochawesome-reporter/plugin';
 
 export default defineConfig({
+  reporter: 'cypress-mochawesome-reporter',
+  reporterOptions: {
+    charts: true,
+    reportPageTitle: 'Cypress Test Report',
+    embeddedScreenshots: true,
+    inlineAssets: true,
+    saveAllAttempts: false,
+  },
   e2e: {
     baseUrl: getBaseUrl(),
     specPattern: 'cypress/tests/**/*.cy.{js,jsx,ts,tsx}',
     setupNodeEvents(on, config) {
+      require('cypress-mochawesome-reporter/plugin')(on);
       return config;
     },
   },
