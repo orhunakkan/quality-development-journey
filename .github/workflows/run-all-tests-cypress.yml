@@ -32,3 +32,11 @@ jobs:
           UAT_BASE_URL: https://uat.bonigarcia.dev/selenium-webdriver-java
           STAGING_BASE_URL: https://staging.bonigarcia.dev/selenium-webdriver-java
         run: npm run cy:run
+
+      - name: Upload Cypress Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-report
+          path: cypress-javascript/cypress/reports/
+          retention-days: 30
