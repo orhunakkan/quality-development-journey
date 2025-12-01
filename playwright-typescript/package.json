@@ -7,7 +7,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "playwright test",
+    "all-tests": "npx playwright test",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report",
     "format": "prettier --write .",
