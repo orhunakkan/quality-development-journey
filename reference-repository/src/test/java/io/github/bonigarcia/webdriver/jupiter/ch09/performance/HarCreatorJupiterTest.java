@@ -1,0 +1,70 @@
+package io.github.bonigarcia.webdriver.jupiter.ch09.performance;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Proxy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.BrowserMobProxyServer;
+import net.lightbody.bmp.client.ClientUtil;
+import net.lightbody.bmp.core.har.Har;
+import net.lightbody.bmp.proxy.CaptureType;
+
+class HarCreatorJupiterTest {
+
+    WebDriver driver;
+
+    BrowserMobProxy proxy;
+
+    @BeforeEach
+    void setup() {
+        proxy = new BrowserMobProxyServer();
+        proxy.start();
+        proxy.newHar();
+        proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT,
+                CaptureType.RESPONSE_CONTENT);
+
+        Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
+        ChromeOptions options = new ChromeOptions();
+        options.setProxy(seleniumProxy);
+        options.setAcceptInsecureCerts(true);
+
+        driver = WebDriverManager.chromedriver().capabilities(options).create();
+    }
+
+    @AfterEach
+    void teardown() throws IOException {
+        Har har = proxy.getHar();
+        File harFile = new File("login.har");
+        har.writeTo(harFile);
+
+        proxy.stop();
+        driver.quit();
+    }
+
+    @Test
+    void testHarCreator() {
+        driver.get(
+                "https://bonigarcia.dev/selenium-webdriver-java/login-form.html");
+
+        driver.findElement(By.id("username")).sendKeys("user");
+        driver.findElement(By.id("password")).sendKeys("user");
+        driver.findElement(By.cssSelector("button")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+                By.tagName("body"), "Login successful"));
+    }
+
+}
