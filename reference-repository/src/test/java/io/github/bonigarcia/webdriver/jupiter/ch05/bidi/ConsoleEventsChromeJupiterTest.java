@@ -31,9 +31,6 @@ class ConsoleEventsChromeJupiterTest {
 
     @AfterEach
     void teardown() throws InterruptedException {
-        // FIXME: pause for manual browser inspection
-        Thread.sleep(Duration.ofSeconds(3).toMillis());
-
         driver.quit();
     }
 

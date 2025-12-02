@@ -38,9 +38,6 @@ class LoadExtensionFirefoxJupiterTest {
 
     @AfterEach
     void teardown() throws InterruptedException, IOException {
-        // FIXME: pause for manual browser inspection
-        Thread.sleep(Duration.ofSeconds(3).toMillis());
-
         Files.delete(zippedExtension);
 
         driver.quit();
