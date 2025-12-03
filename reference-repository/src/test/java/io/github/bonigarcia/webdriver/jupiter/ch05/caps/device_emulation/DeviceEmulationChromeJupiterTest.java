@@ -2,7 +2,6 @@ package io.github.bonigarcia.webdriver.jupiter.ch05.caps.device_emulation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 

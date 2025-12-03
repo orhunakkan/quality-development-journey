@@ -4,7 +4,6 @@ import static java.lang.invoke.MethodHandles.lookup;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -41,9 +40,6 @@ class ManageCookiesJupiterTest {
 
         @AfterEach
         void teardown() throws InterruptedException {
-                // FIXME: pause for manual browser inspection
-                Thread.sleep(Duration.ofSeconds(3).toMillis());
-
                 devTools.close();
                 driver.quit();
         }

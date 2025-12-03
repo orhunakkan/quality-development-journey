@@ -2,7 +2,6 @@ package io.github.bonigarcia.webdriver.jupiter.ch04.javascript;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.Duration;
 import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;

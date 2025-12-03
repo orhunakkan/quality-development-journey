@@ -2,7 +2,6 @@ package io.github.bonigarcia.webdriver.jupiter.ch05.caps.l10n;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.Duration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 

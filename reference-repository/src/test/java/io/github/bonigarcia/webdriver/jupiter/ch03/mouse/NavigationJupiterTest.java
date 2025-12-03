@@ -2,7 +2,6 @@ package io.github.bonigarcia.webdriver.jupiter.ch03.mouse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.Duration;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

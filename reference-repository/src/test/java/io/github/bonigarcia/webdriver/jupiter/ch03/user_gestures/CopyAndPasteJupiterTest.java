@@ -2,8 +2,6 @@ package io.github.bonigarcia.webdriver.jupiter.ch03.user_gestures;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.Duration;
-
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

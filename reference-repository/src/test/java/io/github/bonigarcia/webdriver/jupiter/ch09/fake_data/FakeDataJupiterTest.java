@@ -2,7 +2,6 @@ package io.github.bonigarcia.webdriver.jupiter.ch09.fake_data;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.Duration;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -26,9 +25,6 @@ class FakeDataJupiterTest {
 
         @AfterEach
         void teardown() throws InterruptedException {
-                // FIXME: pause for manual browser inspection
-                Thread.sleep(Duration.ofSeconds(3).toMillis());
-
                 driver.quit();
         }
 
