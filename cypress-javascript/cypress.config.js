@@ -1,5 +1,4 @@
 import { defineConfig } from 'cypress';
-import { getBaseUrl } from './cypress/utilities/environments.js';
 import 'cypress-mochawesome-reporter/plugin';
 import dotenv from 'dotenv';
 

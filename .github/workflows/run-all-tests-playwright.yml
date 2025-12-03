@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./playwright-typescript
-        run: npm ci
+        run: npm install
 
       - name: Install Playwright browsers
         working-directory: ./playwright-typescript
@@ -30,11 +30,6 @@ jobs:
 
       - name: Run Playwright tests
         working-directory: ./playwright-typescript
-        env:
-          ENV: prod
-          PROD_URL: https://bonigarcia.dev/selenium-webdriver-java
-          UAT_URL: https://uat.bonigarcia.dev/selenium-webdriver-java
-          STAGING_URL: https://staging.bonigarcia.dev/selenium-webdriver-java
         run: npx playwright test
 
       - name: Upload Playwright Report

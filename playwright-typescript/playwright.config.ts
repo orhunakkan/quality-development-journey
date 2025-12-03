@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
-import { getBaseUrl } from './utilities/environments';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default defineConfig({
   testDir: './tests',
@@ -11,7 +13,7 @@ export default defineConfig({
   reporter: [['list'], ['html'], ['json', { outputFile: 'test-results/report.json' }]],
   outputDir: 'test-results',
   use: {
-    baseURL: getBaseUrl(),
+    baseURL: process.env.ENV,
     trace: 'on-first-retry',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
