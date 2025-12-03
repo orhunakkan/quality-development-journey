@@ -22,16 +22,11 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./selenium-javascript
-        run: npm ci
+        run: npm install
 
       - name: Run Selenium tests
         working-directory: ./selenium-javascript
-        env:
-          ENV: prod
-          PROD_URL: https://bonigarcia.dev/selenium-webdriver-java
-          UAT_URL: https://uat.bonigarcia.dev/selenium-webdriver-java
-          STAGING_URL: https://staging.bonigarcia.dev/selenium-webdriver-java
-        run: npm run test:all
+        run: npx mocha tests/e2e
 
       - name: Upload Selenium Report
         if: always()

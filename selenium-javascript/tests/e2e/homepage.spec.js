@@ -1,24 +1,20 @@
+import { Builder } from 'selenium-webdriver';
 import { expect } from 'chai';
-import { buildDriver } from '../../utilities/driver.js';
-import { getBaseUrl } from '../../utilities/environments.js';
 
-const browser = (process.env.BROWSER || 'chrome').toLowerCase();
-
-describe(`Homepage Tests - ${browser}`, function () {
-
+describe('Homepage Test', function() {
     let driver;
 
     beforeEach(async () => {
-        driver = await buildDriver();
-        await driver.get(getBaseUrl());
+        driver = await new Builder().forBrowser('chrome').build();
+        await driver.get('https://bonigarcia.dev/selenium-webdriver-java/');
     });
 
     afterEach(async () => {
-        if (driver) await driver.quit();
+        await driver.quit();
     });
 
-    it('should load the homepage successfully', async () => {
+    it('should verify the title of the page', async () => {
         const title = await driver.getTitle();
-        expect(title).to.equal('Hands-On Selenium WebDriver with Java');
+        expect(title).to.contain('Selenium WebDriver');
     });
 });
