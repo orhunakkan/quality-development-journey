@@ -31,7 +31,7 @@ jobs:
           PROD_BASE_URL: https://bonigarcia.dev/selenium-webdriver-java
           UAT_BASE_URL: https://uat.bonigarcia.dev/selenium-webdriver-java
           STAGING_BASE_URL: https://staging.bonigarcia.dev/selenium-webdriver-java
-        run: npm run cy:run
+        run: npm run cy:run:all
 
       - name: Upload Cypress Report
         if: always()
