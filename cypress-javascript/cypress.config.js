@@ -1,6 +1,9 @@
 import { defineConfig } from 'cypress';
 import { getBaseUrl } from './cypress/utilities/environments.js';
 import 'cypress-mochawesome-reporter/plugin';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default defineConfig({
   reporter: 'cypress-mochawesome-reporter',
@@ -12,7 +15,7 @@ export default defineConfig({
     saveAllAttempts: false,
   },
   e2e: {
-    baseUrl: getBaseUrl(),
+    baseUrl: process.env.ENV,
     specPattern: 'cypress/tests/**/*.cy.{js,jsx,ts,tsx}',
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
