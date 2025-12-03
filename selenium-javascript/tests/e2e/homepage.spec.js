@@ -1,5 +1,5 @@
-import { Builder } from 'selenium-webdriver';
 import { expect } from 'chai';
+import DriverManager from '../../utilities/driver.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,7 +8,7 @@ describe('Homepage Test', function () {
     let driver;
 
     beforeEach(async () => {
-        driver = await new Builder().forBrowser('chrome').build();
+        driver = await DriverManager.getDriver();
         await driver.get(process.env.ENV);
     });
 

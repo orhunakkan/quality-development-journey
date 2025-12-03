@@ -26,7 +26,7 @@ jobs:
 
       - name: Run Selenium tests
         working-directory: ./selenium-javascript
-        run: npx mocha tests/e2e
+        run: HEADLESS=true npx mocha tests/e2e
 
       - name: Upload Selenium Report
         if: always()
