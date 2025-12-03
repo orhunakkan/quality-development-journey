@@ -1,26 +1,24 @@
 import { expect } from 'chai';
-import { createDriver, quitDriver } from '../../utilities/driver.js';
+import { buildDriver } from '../../utilities/driver.js';
 import { getBaseUrl } from '../../utilities/environments.js';
 
-const browsers = ['chrome', 'edge', 'firefox'];
+const browser = (process.env.BROWSER || 'chrome').toLowerCase();
 
-for (const browser of browsers) {
-    describe(`Homepage Tests - ${browser}`, function () {
+describe(`Homepage Tests - ${browser}`, function () {
 
-        let driver;
+    let driver;
 
-        beforeEach(async () => {
-            driver = await createDriver({ browser });
-            await driver.get('/');
-        });
-
-        afterEach(async () => {
-            await quitDriver(driver);
-        });
-
-        it('should load the homepage successfully', async () => {
-            const title = await driver.getTitle();
-            expect(title).to.equal('Hands-On Selenium WebDriver with Java');
-        });
+    beforeEach(async () => {
+        driver = await buildDriver();
+        await driver.get(getBaseUrl());
     });
-}
+
+    afterEach(async () => {
+        if (driver) await driver.quit();
+    });
+
+    it('should load the homepage successfully', async () => {
+        const title = await driver.getTitle();
+        expect(title).to.equal('Hands-On Selenium WebDriver with Java');
+    });
+});
