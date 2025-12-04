@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-describe('Homepage Test', function () {
+describe('Homepage Test', () => {
   let driver;
 
   beforeEach(async () => {
