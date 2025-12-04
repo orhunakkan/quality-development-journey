@@ -1,7 +1,0 @@
-node_modules/
-cypress/videos/
-cypress/screenshots/
-cypress/cypress-reports/
-coverage/
-package-lock.json
-*.log

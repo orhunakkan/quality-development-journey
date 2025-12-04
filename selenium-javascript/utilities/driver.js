@@ -7,67 +7,67 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 class DriverManager {
-    static async getDriver(browser = process.env.BROWSER || 'chrome') {
-        const builder = new Builder().forBrowser(browser);
+  static async getDriver(browser = process.env.BROWSER || 'chrome') {
+    const builder = new Builder().forBrowser(browser);
 
-        switch (browser.toLowerCase()) {
-            case 'chrome':
-                builder.setChromeOptions(this.getChromeOptions());
-                break;
-            case 'firefox':
-                builder.setFirefoxOptions(this.getFirefoxOptions());
-                break;
-            case 'edge':
-                builder.setEdgeOptions(this.getEdgeOptions());
-                break;
-        }
-
-        return await builder.build();
+    switch (browser.toLowerCase()) {
+      case 'chrome':
+        builder.setChromeOptions(this.getChromeOptions());
+        break;
+      case 'firefox':
+        builder.setFirefoxOptions(this.getFirefoxOptions());
+        break;
+      case 'edge':
+        builder.setEdgeOptions(this.getEdgeOptions());
+        break;
     }
 
-    static getChromeOptions() {
-        const options = new chrome.Options();
+    return await builder.build();
+  }
 
-        if (process.env.HEADLESS === 'true') {
-            options.addArguments('--headless=new');
-        }
+  static getChromeOptions() {
+    const options = new chrome.Options();
 
-        // Common Chrome options for stability
-        options.addArguments('--no-sandbox');
-        options.addArguments('--disable-dev-shm-usage');
-        options.addArguments('--disable-gpu');
-        options.addArguments('--window-size=1920,1080');
-
-        return options;
+    if (process.env.HEADLESS === 'true') {
+      options.addArguments('--headless=new');
     }
 
-    static getFirefoxOptions() {
-        const options = new firefox.Options();
+    // Common Chrome options for stability
+    options.addArguments('--no-sandbox');
+    options.addArguments('--disable-dev-shm-usage');
+    options.addArguments('--disable-gpu');
+    options.addArguments('--window-size=1920,1080');
 
-        if (process.env.HEADLESS === 'true') {
-            options.addArguments('--headless');
-        }
+    return options;
+  }
 
-        options.addArguments('--width=1920');
-        options.addArguments('--height=1080');
+  static getFirefoxOptions() {
+    const options = new firefox.Options();
 
-        return options;
+    if (process.env.HEADLESS === 'true') {
+      options.addArguments('--headless');
     }
 
-    static getEdgeOptions() {
-        const options = new edge.Options();
+    options.addArguments('--width=1920');
+    options.addArguments('--height=1080');
 
-        if (process.env.HEADLESS === 'true') {
-            options.addArguments('--headless=new');
-        }
+    return options;
+  }
 
-        options.addArguments('--no-sandbox');
-        options.addArguments('--disable-dev-shm-usage');
-        options.addArguments('--disable-gpu');
-        options.addArguments('--window-size=1920,1080');
+  static getEdgeOptions() {
+    const options = new edge.Options();
 
-        return options;
+    if (process.env.HEADLESS === 'true') {
+      options.addArguments('--headless=new');
     }
+
+    options.addArguments('--no-sandbox');
+    options.addArguments('--disable-dev-shm-usage');
+    options.addArguments('--disable-gpu');
+    options.addArguments('--window-size=1920,1080');
+
+    return options;
+  }
 }
 
 export default DriverManager;
