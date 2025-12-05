@@ -18,6 +18,9 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    extraHTTPHeaders: {
+      API_BASE_URL: process.env.API_URL,
+    },
   },
   projects: [
     {

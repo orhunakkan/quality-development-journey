@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { expect } from 'chai';
+import { getApiBaseUrl } from '../utilities/environments.js';
 
 describe('Notes Health Check API', () => {
 
-  const apiUrl = 'https://practice.expandtesting.com/notes/api/health-check';
+  const apiUrl = `${getApiBaseUrl()}/health-check`;
 
   it('should return a successful health check response', async () => {
     const response = await axios.get(apiUrl);
