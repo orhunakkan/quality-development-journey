@@ -2,12 +2,5 @@
   "timeout": 30000,
   "spec": "tests/**/*.spec.js",
   "reporter": "mochawesome",
-  "reporter-options": [
-    "reportDir=reports",
-    "reportFilename=test-report",
-    "html=true",
-    "json=true",
-    "overwrite=true",
-    "timestamp=false"
-  ]
+  "reporter-options": ["reportDir=reports", "reportFilename=test-report", "html=true", "json=true", "overwrite=true", "timestamp=false"]
 }
