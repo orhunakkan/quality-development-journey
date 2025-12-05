@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { expect } from 'chai';
-import { getApiBaseUrl } from '../utilities/environments.js';
+import { getApiBaseUrl } from '../../utilities/environments.js';
 
 describe('Notes Health Check API', () => {
 
