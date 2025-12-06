@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { expect } from 'chai';
-import { getApiBaseUrl } from '../../utilities/environments.js';
 
 describe('Notes Health Check API', () => {
 
-  const apiUrl = `${getApiBaseUrl()}/health-check`;
+  const apiUrl = `${process.env.API_URL}/health-check`;
 
   it('should return a successful health check response', async () => {
     const response = await axios.get(apiUrl);

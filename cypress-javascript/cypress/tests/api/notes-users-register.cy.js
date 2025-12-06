@@ -1,4 +1,3 @@
-// Create bolier plate for notes users register API test POST request
 describe('Notes Users Register API', () => {
 
     const apiUrl = `${Cypress.env('apiBaseUrl')}/users/register`;
@@ -21,11 +20,11 @@ describe('Notes Users Register API', () => {
         }).then((response) => {
             expect(response.status).to.eq(201);
             expect(response.body).to.have.property('success', true);
+            expect(response.body).to.have.property('status', 201);
             expect(response.body).to.have.property('message', 'User account created successfully');
             expect(response.body).to.have.property('data');
-            expect(response.body.data).to.have.property('id');
-            const username = response.body.data.username || response.body.data.name;
-            expect(username).to.eq(requestBody.name);
+            expect(response.body.data).to.have.property('id').that.is.a('string');
+            expect(response.body.data).to.have.property('name', requestBody.name);
             expect(response.body.data).to.have.property('email', requestBody.email);
         });
     });
