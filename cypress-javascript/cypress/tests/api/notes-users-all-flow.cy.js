@@ -1,0 +1,84 @@
+describe('Notes Users Register and Login API', () => {
+    const registerUrl = `${Cypress.env('apiBaseUrl')}/users/register`;
+    const loginUrl = `${Cypress.env('apiBaseUrl')}/users/login`;
+    const profileUrl = `${Cypress.env('apiBaseUrl')}/users/profile`;
+
+    let registeredUser = {};
+    let authToken = '';
+
+    it('should register a new user successfully', () => {
+        const suffix = Date.now();
+        const requestBody = {
+            name: `testuser-${suffix}`,
+            email: `testuser-${suffix}@example.com`,
+            password: 'Test@1234',
+        };
+
+        registeredUser = requestBody;
+
+        cy.request({
+            method: 'POST',
+            url: registerUrl,
+            body: requestBody,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => {
+            expect(response.status).to.eq(201);
+            expect(response.body).to.have.property('success', true);
+            expect(response.body).to.have.property('status', 201);
+            expect(response.body).to.have.property('message', 'User account created successfully');
+            expect(response.body).to.have.property('data');
+            expect(response.body.data).to.have.property('id').that.is.a('string');
+            expect(response.body.data).to.have.property('name', requestBody.name);
+            expect(response.body.data).to.have.property('email', requestBody.email);
+        });
+    });
+
+    it('should login with the registered user successfully', () => {
+        const loginBody = {
+            email: registeredUser.email,
+            password: registeredUser.password,
+        };
+
+        cy.request({
+            method: 'POST',
+            url: loginUrl,
+            body: loginBody,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.have.property('success', true);
+            expect(response.body).to.have.property('status', 200);
+            expect(response.body).to.have.property('message', 'Login successful');
+            expect(response.body).to.have.property('data');
+            expect(response.body.data).to.have.property('id').that.is.a('string');
+            expect(response.body.data).to.have.property('name', registeredUser.name);
+            expect(response.body.data).to.have.property('email', registeredUser.email);
+            expect(response.body.data).to.have.property('token').that.is.a('string');
+
+            authToken = response.body.data.token;
+        });
+    });
+
+    it('should get user profile with valid token', () => {
+        cy.request({
+            method: 'GET',
+            url: profileUrl,
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': authToken,
+            },
+        }).then(response => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.have.property('success', true);
+            expect(response.body).to.have.property('message', 'Profile successful');
+            expect(response.body).to.have.property('data');
+            expect(response.body.data).to.have.property('id').that.is.a('string');
+            expect(response.body.data).to.have.property('name', registeredUser.name);
+            expect(response.body.data).to.have.property('email', registeredUser.email);
+        });
+    });
+});
