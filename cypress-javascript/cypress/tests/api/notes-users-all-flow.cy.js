@@ -2,6 +2,9 @@ describe('Notes Users Register and Login API', () => {
     const registerUrl = `${Cypress.env('apiBaseUrl')}/users/register`;
     const loginUrl = `${Cypress.env('apiBaseUrl')}/users/login`;
     const profileUrl = `${Cypress.env('apiBaseUrl')}/users/profile`;
+    const forgotPasswordUrl = `${Cypress.env('apiBaseUrl')}/users/forgot-password`;
+    const logoutUrl = `${Cypress.env('apiBaseUrl')}/users/logout`;
+    const deleteAccountUrl = `${Cypress.env('apiBaseUrl')}/users/delete-account`;
 
     let registeredUser = {};
     let authToken = '';
@@ -109,6 +112,40 @@ describe('Notes Users Register and Login API', () => {
             expect(response.body.data).to.have.property('phone', updatedProfile.phone);
             expect(response.body.data).to.have.property('company', updatedProfile.company);
             registeredUser = { ...registeredUser, ...updatedProfile };
+        });
+    });
+
+    it('should send forgot password email with valid email address', () => {
+        const forgotPasswordBody = {
+            email: registeredUser.email,
+        };
+
+        cy.request({
+            method: 'POST',
+            url: forgotPasswordUrl,
+            body: forgotPasswordBody,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.have.property('success', true);
+            expect(response.body).to.have.property('message').that.includes('Password reset link successfully sent to');
+        });
+    });
+
+    it('should logout with valid auth token', () => {
+        cy.request({
+            method: 'DELETE',
+            url: logoutUrl,
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': authToken,
+            },
+        }).then(response => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.have.property('success', true);
+            expect(response.body).to.have.property('message', 'User has been successfully logged out');
         });
     });
 });
