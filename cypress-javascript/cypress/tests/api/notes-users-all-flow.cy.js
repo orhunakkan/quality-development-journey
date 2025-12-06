@@ -81,4 +81,34 @@ describe('Notes Users Register and Login API', () => {
             expect(response.body.data).to.have.property('email', registeredUser.email);
         });
     });
+
+    it('should update the user profile with name, phone, and company', () => {
+        const updatedProfile = {
+            name: `${registeredUser.name}-updated`,
+            phone: '1234567890',
+            company: 'Test Company',
+        };
+
+        cy.request({
+            method: 'PATCH',
+            url: profileUrl,
+            body: updatedProfile,
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': authToken,
+            },
+        }).then(response => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.have.property('success', true);
+            expect(response.body).to.have.property('status', 200);
+            expect(response.body).to.have.property('message', 'Profile updated successful');
+            expect(response.body).to.have.property('data');
+            expect(response.body.data).to.have.property('id').that.is.a('string');
+            expect(response.body.data).to.have.property('name', updatedProfile.name);
+            expect(response.body.data).to.have.property('email', registeredUser.email);
+            expect(response.body.data).to.have.property('phone', updatedProfile.phone);
+            expect(response.body.data).to.have.property('company', updatedProfile.company);
+            registeredUser = { ...registeredUser, ...updatedProfile };
+        });
+    });
 });
