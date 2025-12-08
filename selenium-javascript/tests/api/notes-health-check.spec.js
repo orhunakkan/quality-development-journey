@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { expect } from 'chai';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 describe('Notes Health Check API', () => {
-
   const apiUrl = `${process.env.API_URL}/health-check`;
 
   it('should return a successful health check response', async () => {
