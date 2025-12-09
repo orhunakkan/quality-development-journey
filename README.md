@@ -22,18 +22,20 @@ Here, you'll find a **comprehensive collection** of projects, learning materials
 🔬 **Practical Learning** - Real-world test scenarios and comprehensive test suites  
 📚 **Knowledge Repository** - Detailed documentation and learning materials  
 🛠️ **Production-Ready Code** - Professional-grade test automation frameworks  
-🌱 **Continuous Growth** - Regular updates reflecting the latest testing trends and technologies  
+🌱 **Continuous Growth** - Regular updates reflecting the latest testing trends and technologies
 
 ---
 
 ## 🗂️ Repository Structure
 
 ### 🎭 **Playwright TypeScript**
+
 `📁 playwright-typescript/`
 
 A modern, robust end-to-end testing framework leveraging TypeScript for type safety and enhanced developer experience.
 
 **Highlights:**
+
 - ✅ Type-safe test automation with TypeScript
 - 🎯 Page Object Model (POM) architecture
 - 🔄 API and E2E test coverage
@@ -46,11 +48,13 @@ A modern, robust end-to-end testing framework leveraging TypeScript for type saf
 ---
 
 ### 🌲 **Cypress JavaScript**
+
 `📁 cypress-javascript/`
 
 Modern JavaScript-based E2E testing framework with real-time reloading and excellent developer experience.
 
 **Highlights:**
+
 - ⚡ Fast, reliable E2E testing
 - 📸 Automatic screenshots and video recording
 - 🔌 Custom commands and utilities
@@ -63,11 +67,13 @@ Modern JavaScript-based E2E testing framework with real-time reloading and excel
 ---
 
 ### 🔷 **Selenium JavaScript**
+
 `📁 selenium-javascript/`
 
 Classic Selenium WebDriver implementation showcasing fundamental automation concepts with JavaScript.
 
 **Highlights:**
+
 - 🌐 Cross-browser testing capabilities
 - 🎭 Page Object Model implementation
 - 📊 JSON and HTML test reports
@@ -80,11 +86,13 @@ Classic Selenium WebDriver implementation showcasing fundamental automation conc
 ---
 
 ### ☕ **Java Learning**
+
 `📁 java-learning/`
 
 Comprehensive Java programming fundamentals with practical examples and Maven project structure.
 
 **Highlights:**
+
 - 📚 20+ detailed learning modules
 - 🎓 From basics to advanced concepts
 - 💻 Hands-on Maven demo project
@@ -93,6 +101,7 @@ Comprehensive Java programming fundamentals with practical examples and Maven pr
 - 🧪 Test-driven learning approach
 
 **Topics Covered:**
+
 - Java Fundamentals (Part 1 & 2)
 - Data Types & Variables
 - Operators & Control Flow
@@ -105,11 +114,13 @@ Comprehensive Java programming fundamentals with practical examples and Maven pr
 ---
 
 ### 🟨 **JavaScript Learning**
+
 `📁 javascript-learning/`
 
 Extensive JavaScript programming journey from fundamentals to advanced concepts with 18+ practical projects.
 
 **Highlights:**
+
 - 🎮 18+ hands-on projects
 - 📚 Comprehensive theory documentation
 - 🎯 Real-world applications (Bankist, Mapty, Forkify)
@@ -119,6 +130,7 @@ Extensive JavaScript programming journey from fundamentals to advanced concepts 
 - 📦 Modules & tooling
 
 **Featured Projects:**
+
 - 🎲 Guess My Number Game
 - 🐷 Pig Game
 - 🏦 Bankist (Banking App)
@@ -130,11 +142,13 @@ Extensive JavaScript programming journey from fundamentals to advanced concepts 
 ---
 
 ### 📚 **Reference Repository**
+
 `📁 reference-repository/`
 
 Production-grade reference implementation with comprehensive testing tools and reporting.
 
 **Highlights:**
+
 - 🔧 Gradle build automation
 - 📊 Allure reporting integration
 - ♿ Accessibility testing with testAccessibility.json
@@ -149,21 +163,25 @@ Production-grade reference implementation with comprehensive testing tools and r
 ## 🛠️ Technologies & Tools
 
 ### **Testing Frameworks**
+
 ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)
 ![Cypress](https://img.shields.io/badge/Cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white)
 ![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
 
 ### **Programming Languages**
+
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 
 ### **Build Tools & Package Managers**
+
 ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
 ![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
 ![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
 
 ### **Development Tools**
+
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
@@ -175,6 +193,7 @@ Production-grade reference implementation with comprehensive testing tools and r
 Each project folder contains its own detailed README with specific setup instructions. Here's a quick overview:
 
 ### **Prerequisites**
+
 - Node.js (v16 or higher)
 - Java JDK (v11 or higher)
 - Maven or Gradle
@@ -212,18 +231,21 @@ npm test
 ## 🌟 Key Learning Outcomes
 
 ### **Test Automation Mastery**
+
 - ✅ Cross-framework test automation expertise
 - ✅ Page Object Model and design patterns
 - ✅ API and E2E testing strategies
 - ✅ Test reporting and documentation
 
 ### **Programming Proficiency**
+
 - ✅ TypeScript/JavaScript advanced concepts
 - ✅ Java fundamentals and OOP principles
 - ✅ Asynchronous programming patterns
 - ✅ Modern ES6+ features
 
 ### **Software Engineering Best Practices**
+
 - ✅ Clean code principles
 - ✅ Project structure and organization
 - ✅ Version control with Git
@@ -275,7 +297,7 @@ This repository represents more than just code—it's a commitment to excellence
 
 ### 🌟 Thank you for visiting! 🌟
 
-*Made with ❤️ and lots of ☕ by Orhun Akkan*
+_Made with ❤️ and lots of ☕ by Orhun Akkan_
 
 **[⬆ Back to Top](#-quality-development-journey)**
 
