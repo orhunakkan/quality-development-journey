@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import HomePage from '../../pages/homepage.js';
 
 describe('Homepage Tests', () => {
