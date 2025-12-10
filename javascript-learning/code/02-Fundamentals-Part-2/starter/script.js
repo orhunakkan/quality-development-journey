@@ -49,6 +49,88 @@ const yearsUntilRetirement = (birthYear) => {
 
 console.log(yearsUntilRetirement(1990));
 
+// Arrays
+
+const friend1 = 'Orhun';
+const friend2 = 'Rabia';
+const friend3 = 'Raphia';
+
+const friends = ['Orhun', 'Rabia', 'Raphia', 'Alya'];
+console.log(friends);
+
+const years = new Array(1990, 2000, 2010);
+console.log(years);
+console.log(years[0]);
+console.log(years.length);
+
+years[2] = 2020;
+console.log(years);
+
+const friendsAndNumbers = ['ORHUN', 1990];
+console.log(friendsAndNumbers);
+
+// Example:
+
+const newCalcAge = function (birthYear) {
+    return 2025 - birthYear;
+}
+
+const newYears = [1990, 1991, 1992, 1993, 1994, 1995];
+const newFriends = ['Orhun', 'Rabia', 'Raphia', 'Alya'];
+
+newYears.forEach(element => {console.log(newCalcAge(element))});
+
+newFriends.push('Melek');
+console.log(newFriends);
+
+newFriends.unshift('Melek');
+console.log(newFriends);
+
+newFriends.pop();
+console.log(newFriends);
+
+newFriends.shift();
+console.log(newFriends);
+
+console.log(newFriends.indexOf('Orhun'));
+console.log(newFriends.indexOf('WHO?'));
+
+console.log(newFriends.includes('Orhun'));
+console.log(newFriends.includes('WHO?'));
+
+// Objects
+
+// Object Literal Syntax -> the most basic way to create object
+const orhun = {
+    firstName: 'Orhun',
+    lastName: 'Akkan',
+    birthYear: 1990,
+    job: 'IT',
+    friends: newFriends,
+    hasDriverslicense: true,
+    calcAge: function () {
+        console.log(this); // 'this' is the object (orhun) itself
+        return 2025 - this.birthYear;
+    }
+}
+
+console.log(orhun);
+console.log(orhun.firstName);
+console.log(orhun['firstName']);
+console.log(orhun.friends);
+console.log(orhun.book); // undefined
+
+orhun.location = 'Schaumburg';
+orhun['work'] = 'QA';
+
+console.log(orhun);
+
+console.log(orhun.calcAge());
+
+
+
+
+
 
 
 
