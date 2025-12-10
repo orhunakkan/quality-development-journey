@@ -1,14 +1,13 @@
 package com.example.demo.cucumber;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
@@ -17,9 +16,10 @@ public class NavigationSteps {
 
     @Before
     public void startDriver() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new", "--disable-gpu", "--window-size=1280,800");
-        driver = new ChromeDriver(options);
+        if (driver == null) {
+            ChromeOptions options = new ChromeOptions();
+            driver = new ChromeDriver(options);
+        }
     }
 
     @After
@@ -32,15 +32,12 @@ public class NavigationSteps {
 
     @Given("I open the example page")
     public void iOpenTheExamplePage() {
-        assertNotNull(driver, "WebDriver should be available for the scenario");
-        driver.navigate().to("https://example.org");
+        driver.get("https://example.com/");
     }
 
     @Then("the page title contains {string}")
     public void thePageTitleContains(String expectedTitle) {
-        assertNotNull(driver, "WebDriver should be available for the scenario");
         String actualTitle = driver.getTitle();
-        assertTrue(actualTitle.contains(expectedTitle),
-                () -> "Expected title to contain '" + expectedTitle + "' but was '" + actualTitle + "'");
+        assertTrue(actualTitle.equalsIgnoreCase(expectedTitle));
     }
 }
