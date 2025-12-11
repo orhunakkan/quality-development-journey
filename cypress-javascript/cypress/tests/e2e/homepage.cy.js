@@ -12,11 +12,11 @@ describe('Homepage Tests', () => {
   });
 
   it('should display all chapter cards', () => {
-    cy.contains(HomePage.chapter3Card).should('be.visible');
-    cy.contains(HomePage.chapter4Card).should('be.visible');
-    cy.contains(HomePage.chapter5Card).should('be.visible');
-    cy.contains(HomePage.chapter7Card).should('be.visible');
-    cy.contains(HomePage.chapter8Card).should('be.visible');
-    cy.contains(HomePage.chapter9Card).should('be.visible');
+    HomePage.chapter3Card().should('be.visible');
+    HomePage.chapter4Card().should('be.visible');
+    HomePage.chapter5Card().should('be.visible');
+    HomePage.chapter7Card().should('be.visible');
+    HomePage.chapter8Card().should('be.visible');
+    HomePage.chapter9Card().should('be.visible');
   });
 });
