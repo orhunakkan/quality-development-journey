@@ -127,8 +127,35 @@ console.log(orhun);
 
 console.log(orhun.calcAge());
 
+// Loops
 
+for (let i = 0; i < 10; i++) {
+    console.log(i)
+}
 
+const orhunArray = ['Orhun', 35, 'QA', ['raphia', 'alya']];
+const types = [];
+
+for(let i = 0; i < orhunArray.length; i++) {
+    console.log(orhunArray[i], typeof orhunArray[i]);
+    types.push(typeof orhunArray[i]);
+}
+
+console.log(types);
+
+// continue and break
+
+for (let i = 0; i < 10; i++) {
+    if (i === 3 || i === 4) continue;
+    else console.log(i);
+}
+
+console.log('-------------------------------')
+
+for (let i = 0; i < 10; i++) {
+    if (i === 5) break;
+    else console.log(i);
+}
 
 
 
