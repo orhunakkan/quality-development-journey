@@ -20,23 +20,15 @@ describe('Homepage Test', () => {
   });
 
   it('should verify the title of the page', async () => {
-    const title = await driver.getTitle();
-    expect(title).to.contain('Selenium WebDriver');
+    expect(await driver.getTitle()).to.equal('Hands-On Selenium WebDriver with Java');
   });
 
   it('should display all chapter cards', async () => {
-    const chapter3 = await driver.findElement(homePage.chapter3Card);
-    const chapter4 = await driver.findElement(homePage.chapter4Card);
-    const chapter5 = await driver.findElement(homePage.chapter5Card);
-    const chapter7 = await driver.findElement(homePage.chapter7Card);
-    const chapter8 = await driver.findElement(homePage.chapter8Card);
-    const chapter9 = await driver.findElement(homePage.chapter9Card);
-
-    expect(await chapter3.isDisplayed()).to.be.true;
-    expect(await chapter4.isDisplayed()).to.be.true;
-    expect(await chapter5.isDisplayed()).to.be.true;
-    expect(await chapter7.isDisplayed()).to.be.true;
-    expect(await chapter8.isDisplayed()).to.be.true;
-    expect(await chapter9.isDisplayed()).to.be.true;
+    expect(await driver.findElement(homePage.chapter3Card).isDisplayed()).to.be.true;
+    expect(await driver.findElement(homePage.chapter4Card).isDisplayed()).to.be.true;
+    expect(await driver.findElement(homePage.chapter5Card).isDisplayed()).to.be.true;
+    expect(await driver.findElement(homePage.chapter7Card).isDisplayed()).to.be.true;
+    expect(await driver.findElement(homePage.chapter8Card).isDisplayed()).to.be.true;
+    expect(await driver.findElement(homePage.chapter9Card).isDisplayed()).to.be.true;
   });
 });
