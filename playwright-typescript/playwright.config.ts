@@ -24,17 +24,27 @@ export default defineConfig({
   },
   projects: [
     {
+      name: 'API Tests',
+      testDir: './tests/api',
+      testMatch: '**/*.spec.ts',
+      use: {},
+    },
+
+    {
       name: 'Desktop Chrome',
+      testDir: './tests/e2e',
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
       name: 'Desktop Firefox',
+      testDir: './tests/e2e',
       use: { ...devices['Desktop Firefox'] },
     },
 
     {
       name: 'Desktop Edge',
+      testDir: './tests/e2e',
       use: { ...devices['Desktop Edge'] },
     },
   ],
