@@ -1,5 +1,5 @@
 describe('Notes Health Check API', () => {
-  const apiUrl = `${Cypress.env('apiBaseUrl')}/health-check`;
+  const apiUrl = `${Cypress.env('API_URL')}/health-check`;
 
   it('should return a successful health check response', () => {
     cy.request({
