@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
 
-describe('Notes Users Register and Login API', () => {
+describe('Notes Users API Flow', () => {
   const registerUrl = `${Cypress.env('API_URL')}/users/register`;
   const loginUrl = `${Cypress.env('API_URL')}/users/login`;
   const profileUrl = `${Cypress.env('API_URL')}/users/profile`;
   const forgotPasswordUrl = `${Cypress.env('API_URL')}/users/forgot-password`;
   const logoutUrl = `${Cypress.env('API_URL')}/users/logout`;
-  
+
   let registeredUser = {};
   let authToken = '';
 

@@ -15,8 +15,6 @@ test.describe('Notes Notes API Flow', () => {
   let authToken = '';
   let createdNoteId = '';
 
-  test.describe.configure({ mode: 'serial' });
-
   test('should register a new user successfully', async ({ request }) => {
     const suffix = Date.now();
     const requestBody = {

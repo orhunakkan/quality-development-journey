@@ -1,4 +1,6 @@
-describe('Notes Users Register and Login API', () => {
+/// <reference types="cypress" />
+
+describe('Notes Notes API Flow', () => {
   const registerUrl = `${Cypress.env('API_URL')}/users/register`;
   const loginUrl = `${Cypress.env('API_URL')}/users/login`;
   const notesUrl = `${Cypress.env('API_URL')}/notes`;

@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-describe('Notes Users Register and Login API', () => {
+describe('Notes Notes API Flow', () => {
   const registerUrl = `${process.env.API_URL}/users/register`;
   const loginUrl = `${process.env.API_URL}/users/login`;
   const notesUrl = `${process.env.API_URL}/notes`;
@@ -30,14 +30,14 @@ describe('Notes Users Register and Login API', () => {
     });
 
     expect(response.status).to.equal(201);
-    expect(response.data).to.haveOwnProperty('success', true);
-    expect(response.data).to.haveOwnProperty('status', 201);
-    expect(response.data).to.haveOwnProperty('message', 'User account created successfully');
-    expect(response.data).to.haveOwnProperty('data');
-    expect(response.data.data).to.haveOwnProperty('id');
+    expect(response.data).to.have.property('success', true);
+    expect(response.data).to.have.property('status', 201);
+    expect(response.data).to.have.property('message', 'User account created successfully');
+    expect(response.data).to.have.property('data');
+    expect(response.data.data).to.have.property('id');
     expect(typeof response.data.data.id).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('name', requestBody.name);
-    expect(response.data.data).to.haveOwnProperty('email', requestBody.email);
+    expect(response.data.data).to.have.property('name', requestBody.name);
+    expect(response.data.data).to.have.property('email', requestBody.email);
   });
 
   it('should login with the registered user successfully', async () => {
@@ -53,15 +53,15 @@ describe('Notes Users Register and Login API', () => {
     });
 
     expect(response.status).to.equal(200);
-    expect(response.data).to.haveOwnProperty('success', true);
-    expect(response.data).to.haveOwnProperty('status', 200);
-    expect(response.data).to.haveOwnProperty('message', 'Login successful');
-    expect(response.data).to.haveOwnProperty('data');
-    expect(response.data.data).to.haveOwnProperty('id');
+    expect(response.data).to.have.property('success', true);
+    expect(response.data).to.have.property('status', 200);
+    expect(response.data).to.have.property('message', 'Login successful');
+    expect(response.data).to.have.property('data');
+    expect(response.data.data).to.have.property('id');
     expect(typeof response.data.data.id).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('name', registeredUser.name);
-    expect(response.data.data).to.haveOwnProperty('email', registeredUser.email);
-    expect(response.data.data).to.haveOwnProperty('token');
+    expect(response.data.data).to.have.property('name', registeredUser.name);
+    expect(response.data.data).to.have.property('email', registeredUser.email);
+    expect(response.data.data).to.have.property('token');
     expect(typeof response.data.data.token).to.equal('string');
 
     authToken = response.data.data.token;
@@ -82,20 +82,20 @@ describe('Notes Users Register and Login API', () => {
     });
 
     expect(response.status).to.equal(200);
-    expect(response.data).to.haveOwnProperty('success', true);
-    expect(response.data).to.haveOwnProperty('message', 'Note successfully created');
-    expect(response.data).to.haveOwnProperty('data');
-    expect(response.data.data).to.haveOwnProperty('id');
+    expect(response.data).to.have.property('success', true);
+    expect(response.data).to.have.property('message', 'Note successfully created');
+    expect(response.data).to.have.property('data');
+    expect(response.data.data).to.have.property('id');
     expect(typeof response.data.data.id).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('title', notePayload.title);
-    expect(response.data.data).to.haveOwnProperty('description', notePayload.description);
-    expect(response.data.data).to.haveOwnProperty('category', notePayload.category);
-    expect(response.data.data).to.haveOwnProperty('completed', false);
-    expect(response.data.data).to.haveOwnProperty('created_at');
+    expect(response.data.data).to.have.property('title', notePayload.title);
+    expect(response.data.data).to.have.property('description', notePayload.description);
+    expect(response.data.data).to.have.property('category', notePayload.category);
+    expect(response.data.data).to.have.property('completed', false);
+    expect(response.data.data).to.have.property('created_at');
     expect(typeof response.data.data.created_at).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('updated_at');
+    expect(response.data.data).to.have.property('updated_at');
     expect(typeof response.data.data.updated_at).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('user_id');
+    expect(response.data.data).to.have.property('user_id');
     expect(typeof response.data.data.user_id).to.equal('string');
 
     createdNoteId = response.data.data.id;
@@ -116,20 +116,20 @@ describe('Notes Users Register and Login API', () => {
     });
 
     expect(response.status).to.equal(200);
-    expect(response.data).to.haveOwnProperty('success', true);
-    expect(response.data).to.haveOwnProperty('message', 'Note successfully created');
-    expect(response.data).to.haveOwnProperty('data');
-    expect(response.data.data).to.haveOwnProperty('id');
+    expect(response.data).to.have.property('success', true);
+    expect(response.data).to.have.property('message', 'Note successfully created');
+    expect(response.data).to.have.property('data');
+    expect(response.data.data).to.have.property('id');
     expect(typeof response.data.data.id).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('title', notePayload.title);
-    expect(response.data.data).to.haveOwnProperty('description', notePayload.description);
-    expect(response.data.data).to.haveOwnProperty('category', notePayload.category);
-    expect(response.data.data).to.haveOwnProperty('completed', false);
-    expect(response.data.data).to.haveOwnProperty('created_at');
+    expect(response.data.data).to.have.property('title', notePayload.title);
+    expect(response.data.data).to.have.property('description', notePayload.description);
+    expect(response.data.data).to.have.property('category', notePayload.category);
+    expect(response.data.data).to.have.property('completed', false);
+    expect(response.data.data).to.have.property('created_at');
     expect(typeof response.data.data.created_at).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('updated_at');
+    expect(response.data.data).to.have.property('updated_at');
     expect(typeof response.data.data.updated_at).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('user_id');
+    expect(response.data.data).to.have.property('user_id');
     expect(typeof response.data.data.user_id).to.equal('string');
   });
 
@@ -142,19 +142,19 @@ describe('Notes Users Register and Login API', () => {
     });
 
     expect(response.status).to.equal(200);
-    expect(response.data).to.haveOwnProperty('success', true);
-    expect(response.data).to.haveOwnProperty('message', 'Note successfully retrieved');
-    expect(response.data).to.haveOwnProperty('data');
-    expect(response.data.data).to.haveOwnProperty('id', createdNoteId);
-    expect(response.data.data).to.haveOwnProperty('title', 'Home Note Title');
-    expect(response.data.data).to.haveOwnProperty('description', 'Home API note description');
-    expect(response.data.data).to.haveOwnProperty('category', 'Home');
-    expect(response.data.data).to.haveOwnProperty('completed', false);
-    expect(response.data.data).to.haveOwnProperty('created_at');
+    expect(response.data).to.have.property('success', true);
+    expect(response.data).to.have.property('message', 'Note successfully retrieved');
+    expect(response.data).to.have.property('data');
+    expect(response.data.data).to.have.property('id', createdNoteId);
+    expect(response.data.data).to.have.property('title', 'Home Note Title');
+    expect(response.data.data).to.have.property('description', 'Home API note description');
+    expect(response.data.data).to.have.property('category', 'Home');
+    expect(response.data.data).to.have.property('completed', false);
+    expect(response.data.data).to.have.property('created_at');
     expect(typeof response.data.data.created_at).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('updated_at');
+    expect(response.data.data).to.have.property('updated_at');
     expect(typeof response.data.data.updated_at).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('user_id');
+    expect(response.data.data).to.have.property('user_id');
     expect(typeof response.data.data.user_id).to.equal('string');
   });
 
@@ -174,19 +174,19 @@ describe('Notes Users Register and Login API', () => {
     });
 
     expect(response.status).to.equal(200);
-    expect(response.data).to.haveOwnProperty('success', true);
-    expect(response.data).to.haveOwnProperty('message', 'Note successfully Updated');
-    expect(response.data).to.haveOwnProperty('data');
-    expect(response.data.data).to.haveOwnProperty('id', createdNoteId);
-    expect(response.data.data).to.haveOwnProperty('title', updatePayload.title);
-    expect(response.data.data).to.haveOwnProperty('description', updatePayload.description);
-    expect(response.data.data).to.haveOwnProperty('category', updatePayload.category);
-    expect(response.data.data).to.haveOwnProperty('completed', updatePayload.completed);
-    expect(response.data.data).to.haveOwnProperty('created_at');
+    expect(response.data).to.have.property('success', true);
+    expect(response.data).to.have.property('message', 'Note successfully Updated');
+    expect(response.data).to.have.property('data');
+    expect(response.data.data).to.have.property('id', createdNoteId);
+    expect(response.data.data).to.have.property('title', updatePayload.title);
+    expect(response.data.data).to.have.property('description', updatePayload.description);
+    expect(response.data.data).to.have.property('category', updatePayload.category);
+    expect(response.data.data).to.have.property('completed', updatePayload.completed);
+    expect(response.data.data).to.have.property('created_at');
     expect(typeof response.data.data.created_at).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('updated_at');
+    expect(response.data.data).to.have.property('updated_at');
     expect(typeof response.data.data.updated_at).to.equal('string');
-    expect(response.data.data).to.haveOwnProperty('user_id');
+    expect(response.data.data).to.have.property('user_id');
     expect(typeof response.data.data.user_id).to.equal('string');
   });
 
@@ -199,9 +199,9 @@ describe('Notes Users Register and Login API', () => {
     });
 
     expect(response.status).to.equal(200);
-    expect(response.data).to.haveOwnProperty('success', true);
-    expect(response.data).to.haveOwnProperty('message', 'Notes successfully retrieved');
-    expect(response.data).to.haveOwnProperty('data');
+    expect(response.data).to.have.property('success', true);
+    expect(response.data).to.have.property('message', 'Notes successfully retrieved');
+    expect(response.data).to.have.property('data');
     expect(Array.isArray(response.data.data)).to.be.true;
     expect(response.data.data).to.have.lengthOf(2);
 
@@ -209,30 +209,30 @@ describe('Notes Users Register and Login API', () => {
 
     const personalNote = notes.find(note => note.category === 'Personal');
     expect(personalNote).to.exist;
-    expect(personalNote).to.haveOwnProperty('id');
+    expect(personalNote).to.have.property('id');
     expect(typeof personalNote.id).to.equal('string');
-    expect(personalNote).to.haveOwnProperty('title', 'Updated Home Note Title');
-    expect(personalNote).to.haveOwnProperty('description', 'Updated Home API note description');
-    expect(personalNote).to.haveOwnProperty('completed', true);
-    expect(personalNote).to.haveOwnProperty('created_at');
+    expect(personalNote).to.have.property('title', 'Updated Home Note Title');
+    expect(personalNote).to.have.property('description', 'Updated Home API note description');
+    expect(personalNote).to.have.property('completed', true);
+    expect(personalNote).to.have.property('created_at');
     expect(typeof personalNote.created_at).to.equal('string');
-    expect(personalNote).to.haveOwnProperty('updated_at');
+    expect(personalNote).to.have.property('updated_at');
     expect(typeof personalNote.updated_at).to.equal('string');
-    expect(personalNote).to.haveOwnProperty('user_id');
+    expect(personalNote).to.have.property('user_id');
     expect(typeof personalNote.user_id).to.equal('string');
 
     const workNote = notes.find(note => note.category === 'Work');
     expect(workNote).to.exist;
-    expect(workNote).to.haveOwnProperty('id');
+    expect(workNote).to.have.property('id');
     expect(typeof workNote.id).to.equal('string');
-    expect(workNote).to.haveOwnProperty('title', 'Work Note Title');
-    expect(workNote).to.haveOwnProperty('description', 'Work API note description');
-    expect(workNote).to.haveOwnProperty('completed', false);
-    expect(workNote).to.haveOwnProperty('created_at');
+    expect(workNote).to.have.property('title', 'Work Note Title');
+    expect(workNote).to.have.property('description', 'Work API note description');
+    expect(workNote).to.have.property('completed', false);
+    expect(workNote).to.have.property('created_at');
     expect(typeof workNote.created_at).to.equal('string');
-    expect(workNote).to.haveOwnProperty('updated_at');
+    expect(workNote).to.have.property('updated_at');
     expect(typeof workNote.updated_at).to.equal('string');
-    expect(workNote).to.haveOwnProperty('user_id');
+    expect(workNote).to.have.property('user_id');
     expect(typeof workNote.user_id).to.equal('string');
   });
 
@@ -245,7 +245,7 @@ describe('Notes Users Register and Login API', () => {
     });
 
     expect(response.status).to.equal(200);
-    expect(response.data).to.haveOwnProperty('success', true);
-    expect(response.data).to.haveOwnProperty('message', 'Note successfully deleted');
+    expect(response.data).to.have.property('success', true);
+    expect(response.data).to.have.property('message', 'Note successfully deleted');
   });
 });
