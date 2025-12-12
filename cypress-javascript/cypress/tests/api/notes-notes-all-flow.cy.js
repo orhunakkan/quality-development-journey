@@ -1,11 +1,7 @@
 describe('Notes Users Register and Login API', () => {
-  const registerUrl = `${Cypress.env('apiBaseUrl')}/users/register`;
-  const loginUrl = `${Cypress.env('apiBaseUrl')}/users/login`;
-  const notesUrl = `${Cypress.env('apiBaseUrl')}/notes`;
-  const profileUrl = `${Cypress.env('apiBaseUrl')}/users/profile`;
-  const forgotPasswordUrl = `${Cypress.env('apiBaseUrl')}/users/forgot-password`;
-  const logoutUrl = `${Cypress.env('apiBaseUrl')}/users/logout`;
-  const deleteAccountUrl = `${Cypress.env('apiBaseUrl')}/users/delete-account`;
+  const registerUrl = `${Cypress.env('API_URL')}/users/register`;
+  const loginUrl = `${Cypress.env('API_URL')}/users/login`;
+  const notesUrl = `${Cypress.env('API_URL')}/notes`;
 
   let registeredUser = {};
   let authToken = '';

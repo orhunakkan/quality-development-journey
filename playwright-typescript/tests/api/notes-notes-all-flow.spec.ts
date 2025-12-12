@@ -1,13 +1,11 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Notes Users Register and Login API', () => {
+test.describe.configure({ mode: 'serial' });
+
+test.describe('Notes Notes API Flow', () => {
   const registerUrl = `${process.env.API_URL}/users/register`;
   const loginUrl = `${process.env.API_URL}/users/login`;
   const notesUrl = `${process.env.API_URL}/notes`;
-  const profileUrl = `${process.env.API_URL}/users/profile`;
-  const forgotPasswordUrl = `${process.env.API_URL}/users/forgot-password`;
-  const logoutUrl = `${process.env.API_URL}/users/logout`;
-  const deleteAccountUrl = `${process.env.API_URL}/users/delete-account`;
 
   let registeredUser: { name: string; email: string; password: string } = {
     name: '',

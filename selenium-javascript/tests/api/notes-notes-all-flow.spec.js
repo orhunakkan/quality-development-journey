@@ -8,10 +8,6 @@ describe('Notes Users Register and Login API', () => {
   const registerUrl = `${process.env.API_URL}/users/register`;
   const loginUrl = `${process.env.API_URL}/users/login`;
   const notesUrl = `${process.env.API_URL}/notes`;
-  const profileUrl = `${process.env.API_URL}/users/profile`;
-  const forgotPasswordUrl = `${process.env.API_URL}/users/forgot-password`;
-  const logoutUrl = `${process.env.API_URL}/users/logout`;
-  const deleteAccountUrl = `${process.env.API_URL}/users/delete-account`;
 
   let registeredUser = {};
   let authToken = '';

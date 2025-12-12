@@ -18,7 +18,7 @@ export default defineConfig({
     specPattern: 'cypress/tests/**/*.cy.{js,jsx,ts,tsx}',
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
-      config.env.apiBaseUrl = process.env.API_URL;
+      config.env.API_URL = process.env.API_URL;
       return config;
     },
   },

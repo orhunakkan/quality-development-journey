@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-describe('Notes Users Register and Login API', () => {
+describe('Notes Notes API Flow', () => {
   const registerUrl = `${process.env.API_URL}/users/register`;
   const loginUrl = `${process.env.API_URL}/users/login`;
   const profileUrl = `${process.env.API_URL}/users/profile`;
