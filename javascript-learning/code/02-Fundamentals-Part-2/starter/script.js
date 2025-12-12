@@ -133,12 +133,12 @@ for (let i = 0; i < 10; i++) {
     console.log(i)
 }
 
-const orhunArray = ['Orhun', 35, 'QA', ['raphia', 'alya']];
+const orhunArray1 = ['Orhun', 35, 'QA', ['raphia', 'alya']];
 const types = [];
 
-for(let i = 0; i < orhunArray.length; i++) {
-    console.log(orhunArray[i], typeof orhunArray[i]);
-    types.push(typeof orhunArray[i]);
+for(let i = 0; i < orhunArray1.length; i++) {
+    console.log(orhunArray1[i], typeof orhunArray1[i]);
+    types.push(typeof orhunArray1[i]);
 }
 
 console.log(types);
@@ -155,6 +155,48 @@ console.log('-------------------------------')
 for (let i = 0; i < 10; i++) {
     if (i === 5) break;
     else console.log(i);
+}
+
+console.log('-------------------------------')
+
+// Looping backwards
+
+const orhunArray2 = ['Orhun', 35, 'QA', ['raphia', 'alya']];
+
+for (let i = orhunArray2.length-1; i >= 0; i--) {
+    console.log(i, orhunArray2[i]);
+}
+
+// Inner Loops
+
+for (let exercise = 1; exercise < 4; exercise++) {
+    console.log(`----- Starting Exercise ${exercise} -----`)
+
+    for (let rep = 1; rep < 6; rep++) {
+        console.log(`Lifting weight repetition ${rep} 💪️`)
+    }
+}
+
+console.log('-------------------------------')
+
+// While Loops
+
+let rep = 1;
+
+while (rep <= 10) {
+    console.log(`Lifting weight repetition ${rep} 🏋️`);
+    rep++;
+}
+
+console.log('-------------------------------')
+
+// Dice is a random number of 1 to 6
+
+let dice = Math.trunc(Math.random() * 6) + 1;
+
+while (dice !== 6) {
+    console.log(`You rolled a ${dice}`);
+    dice = Math.trunc(Math.random() * 6) + 1;
 }
 
 
