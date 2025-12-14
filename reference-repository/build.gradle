@@ -9,9 +9,14 @@ jar {
     archiveVersion = "1.2.0"
 }
 
-compileTestJava {
-    sourceCompatibility = 25
-    targetCompatibility = 25
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
     options.compilerArgs += "-parameters"
 }
 
