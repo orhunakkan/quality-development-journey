@@ -37,7 +37,6 @@ class NetworkInterceptorEdgeJupiterTest {
         driver.quit();
     }
 
-    @SuppressWarnings("unused")
     @Test
     void testNetworkInterceptor() throws Exception {
         Path img = Paths
