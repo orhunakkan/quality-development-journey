@@ -15,6 +15,7 @@ public class ChromeTests {
     @BeforeEach
     public void setUp() {
         driver = DriverManager.createChromeDriver();
+        driver.get("https://www.google.com");
     }
 
     @AfterEach
@@ -24,19 +25,14 @@ public class ChromeTests {
 
     @Test
     public void testGooglePageTitle() {
-        driver.get("https://www.google.com");
         String title = driver.getTitle();
-
         assertNotNull(title, "Page title should not be null");
         assertTrue(title.contains("Google"), "Page title should contain 'Google'");
     }
 
     @Test
     public void testGoogleSearchBox() {
-        driver.get("https://www.google.com");
-
         WebElement searchBox = driver.findElement(GooglePage.SEARCH_BOX);
-
         assertNotNull(searchBox, "Search box should be present");
         assertTrue(searchBox.isDisplayed(), "Search box should be displayed");
         assertTrue(searchBox.isEnabled(), "Search box should be enabled");
