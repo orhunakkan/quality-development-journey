@@ -9,6 +9,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.GooglePage;
 import utilities.DriverManager;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,11 +32,15 @@ public class GoogleSteps {
 
     @Given("I navigate to Google homepage")
     public void iNavigateToGoogleHomepage() {
-        driver.get("https://www.google.com");
+        // Use /ncr to avoid regional redirects that can change title/localization
+        driver.get("https://www.google.com/ncr");
     }
 
     @Then("the page title should contain {string}")
     public void thePageTitleShouldContain(String expectedTitle) {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.titleContains(expectedTitle));
+
         String title = driver.getTitle();
         assertNotNull(title, "Page title should not be null");
         assertTrue(title.contains(expectedTitle), "Page title should contain '" + expectedTitle + "'");
