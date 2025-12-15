@@ -1,11 +1,10 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import pages.GooglePage;
+import utilities.DriverManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,18 +14,12 @@ public class ChromeTests {
 
     @BeforeEach
     public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
+        driver = DriverManager.createChromeDriver();
     }
 
     @AfterEach
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        DriverManager.quitDriver(driver);
     }
 
     @Test
@@ -42,7 +35,7 @@ public class ChromeTests {
     public void testGoogleSearchBox() {
         driver.get("https://www.google.com");
 
-        WebElement searchBox = driver.findElement(By.name("q"));
+        WebElement searchBox = driver.findElement(GooglePage.SEARCH_BOX);
 
         assertNotNull(searchBox, "Search box should be present");
         assertTrue(searchBox.isDisplayed(), "Search box should be displayed");
