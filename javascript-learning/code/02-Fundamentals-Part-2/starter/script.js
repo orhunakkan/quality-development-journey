@@ -78,7 +78,7 @@ const newCalcAge = function (birthYear) {
 const newYears = [1990, 1991, 1992, 1993, 1994, 1995];
 const newFriends = ['Orhun', 'Rabia', 'Raphia', 'Alya'];
 
-newYears.forEach(element => {console.log(newCalcAge(element))});
+newYears.forEach(element => { console.log(newCalcAge(element)) });
 
 newFriends.push('Melek');
 console.log(newFriends);
@@ -136,7 +136,7 @@ for (let i = 0; i < 10; i++) {
 const orhunArray1 = ['Orhun', 35, 'QA', ['raphia', 'alya']];
 const types = [];
 
-for(let i = 0; i < orhunArray1.length; i++) {
+for (let i = 0; i < orhunArray1.length; i++) {
     console.log(orhunArray1[i], typeof orhunArray1[i]);
     types.push(typeof orhunArray1[i]);
 }
@@ -163,7 +163,7 @@ console.log('-------------------------------')
 
 const orhunArray2 = ['Orhun', 35, 'QA', ['raphia', 'alya']];
 
-for (let i = orhunArray2.length-1; i >= 0; i--) {
+for (let i = orhunArray2.length - 1; i >= 0; i--) {
     console.log(i, orhunArray2[i]);
 }
 
@@ -222,15 +222,40 @@ TEST DATA 2: Dolphins scored 85, 54, and 41. Koalas scored 23, 34, and 27.
 
 */
 
+const calcAverage = (a, b, c) => (a + b + c) / 3;
+
+function checkWinner(avgDolphins, avgKoalas) {
+    if (avgDolphins >= 2 * avgKoalas) {
+        console.log(`Dolphins win (${avgDolphins} vs. ${avgKoalas})`);
+    } else if (avgKoalas >= 2 * avgDolphins) {
+        console.log(`Koalas win (${avgKoalas} vs. ${avgDolphins})`);
+    } else {
+        console.log('No team wins...');
+    }
+}
+
+// DATA 1
+const scoreDolphins = calcAverage(44, 23, 71);
+const scoreKoalas = calcAverage(65, 54, 49);
+checkWinner(scoreDolphins, scoreKoalas);
+
+// DATA 2
+const scoreDolphinsData2 = calcAverage(85, 54, 41);
+const scoreKoalasData2 = calcAverage(23, 34, 27);
+checkWinner(scoreDolphinsData2, scoreKoalasData2);
+
 /*
 
 CHALLENGE #2
 
-Steven wants you to improve his tip calculator, using the same rules as before — tip 15% of the bill if the bill value is between 50 and 300, and if the value is different, the tip is 20%.
+Steven wants you to improve his tip calculator.
+Using the same rules as before — tip 15% of the bill if the bill value is between 50 and 300, and if the value is different, the tip is 20%.
 
 Your tasks:
 
-- Write a function calcTip that takes any bill value as an input and returns the corresponding tip, calculated based on the rules above (you can check out the code from the first tip calculator challenge if you need to). Use the function type you like the most. Test the function using a bill value of 100.
+- Write a function calcTip that takes any bill value as an input and returns the corresponding tip
+- Calculated based on the rules above (you can check out the code from the first tip calculator challenge if you need to).
+- Use the function type you like the most. Test the function using a bill value of 100.
 - And now let's use arrays! So, create an array called bills containing the test data below.
 - Create an array called tips containing the tip value for each bill, calculated from the function you created before.
 
@@ -239,6 +264,28 @@ BONUS: Create an array totals containing the total values, so the bill + tip.
 TEST DATA: 125, 555, and 44.
 
 */
+
+let tip;
+
+function calcTip(bill) {
+    if (bill > 50 && bill < 300) tip = (bill * 15) / 100;
+    else { tip = (bill * 20) / 100 };
+    return tip;
+}
+
+console.log(calcTip(100));
+
+const bills = [125, 555, 44];
+const tips = [];
+const totals = [];
+
+bills.forEach(element => {
+    tips.push(calcTip(element));
+    totals.push(element + calcTip(element));
+});
+
+console.log(tips);
+console.log(totals);
 
 /*
 
@@ -249,13 +296,51 @@ This time, let's use objects to implement the calculations! Remember: BMI = mass
 
 Your tasks:
 
-- For each of them, create an object with properties for their full name, mass, and height (Mark Miller and John Smith). Name these objects as mark and john, and their properties exactly as fullName, mass and height.
-- Create a calcBMI method on each object to calculate the BMI (the same method on both objects). Assign the BMI value to a property called bmi (lowercase), and also return it from the method.
-- Log to the console who has the higher BMI, together with the full name and the respective BMI. Example: "John Smith's BMI (28.3) is higher than Mark Miller's (23.9)!".
+- For each of them, create an object with properties for their full name, mass, and height (Mark Miller and John Smith).
+- Name these objects as mark and john, and their properties exactly as fullName, mass and height.
+- Create a calcBMI method on each object to calculate the BMI (the same method on both objects).
+- Assign the BMI value to a property called bmi (lowercase), and also return it from the method.
+- Log to the console who has the higher BMI, together with the full name and the respective BMI.
+- Example: "John Smith's BMI (28.3) is higher than Mark Miller's (23.9)!".
 
 TEST DATA: Marks weighs 78 kg and is 1.69 m tall. John weighs 92 kg and is 1.95 m tall.
 
 */
+
+// Create the objects
+const mark = {
+  fullName: 'Mark Miller',
+  mass: 78,
+  height: 1.69,
+  calcBMI() {
+    this.bmi = this.mass / (this.height * this.height);
+    return this.bmi;
+  }
+};
+
+const john = {
+  fullName: 'John Smith',
+  mass: 92,
+  height: 1.95,
+  calcBMI() {
+    this.bmi = this.mass / (this.height * this.height);
+    return this.bmi;
+  }
+};
+
+mark.calcBMI();
+john.calcBMI();
+
+if (mark.bmi > john.bmi) {
+  console.log(
+    `${mark.fullName}'s BMI (${mark.bmi}) is higher than ${john.fullName}'s (${john.bmi})!`
+  );
+} else {
+  console.log(
+    `${john.fullName}'s BMI (${john.bmi}) is higher than ${mark.fullName}'s (${mark.bmi})!`
+  );
+}
+
 
 /*
 
@@ -287,6 +372,38 @@ Here is how to solve it if you feel like it:
 - Call the function with the totals array.
 
 */
+
+// Test data
+const bills1 = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
+
+// Tip calculator function (from previous challenge)
+const calcTip1 = function (bill) {
+  return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+};
+
+// Empty arrays
+const tips1 = [];
+const totals1 = [];
+
+// Calculate tips and totals
+for (let i = 0; i < bills1.length; i++) {
+  const tip = calcTip1(bills1[i]);
+  tips1.push(tip);
+  totals1.push(bills1[i] + tip);
+}
+
+// BONUS: Average calculator
+const calcAverage1 = function (arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum / arr.length;
+};
+
+// Example usage
+calcAverage1(totals1);
+
 
 
 
