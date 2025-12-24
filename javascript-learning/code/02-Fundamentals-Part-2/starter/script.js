@@ -373,26 +373,21 @@ Here is how to solve it if you feel like it:
 
 */
 
-// Test data
 const bills1 = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
 
-// Tip calculator function (from previous challenge)
 const calcTip1 = function (bill) {
   return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
 };
 
-// Empty arrays
 const tips1 = [];
 const totals1 = [];
 
-// Calculate tips and totals
 for (let i = 0; i < bills1.length; i++) {
   const tip = calcTip1(bills1[i]);
   tips1.push(tip);
   totals1.push(bills1[i] + tip);
 }
 
-// BONUS: Average calculator
 const calcAverage1 = function (arr) {
   let sum = 0;
   for (let i = 0; i < arr.length; i++) {
@@ -401,7 +396,6 @@ const calcAverage1 = function (arr) {
   return sum / arr.length;
 };
 
-// Example usage
 calcAverage1(totals1);
 
 
