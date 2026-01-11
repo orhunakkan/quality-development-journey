@@ -1,4 +1,12 @@
 import { test, expect } from '@playwright/test';
+import {
+  contentTypeHeaders,
+  getAuthHeaders,
+  generateRegisterPayload,
+  generateLoginPayload,
+  generateUpdateProfilePayload,
+  generateForgotPasswordPayload,
+} from '../../fixtures/notes-api-payloads/users-request-payloads';
 
 test.describe.configure({ mode: 'serial' });
 
@@ -12,21 +20,15 @@ test.describe('Notes Users API Flow', () => {
   let registeredUser: any = {};
   let authToken = '';
 
-  test('should register a new user successfully', async ({ request }) => {
-    const suffix = Date.now();
-    const requestBody = {
-      name: `testuser-${suffix}`,
-      email: `testuser-${suffix}@example.com`,
-      password: 'Test@1234',
-    };
+  const registerPayload = generateRegisterPayload();
+  const loginPayload = generateLoginPayload(registerPayload.email, registerPayload.password);
 
-    registeredUser = requestBody;
+  test('should register a new user successfully', async ({ request }) => {
+    registeredUser = registerPayload;
 
     const response = await request.post(registerUrl, {
-      data: requestBody,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      data: registerPayload,
+      headers: contentTypeHeaders,
     });
 
     const responseBody = await response.json();
@@ -37,21 +39,14 @@ test.describe('Notes Users API Flow', () => {
     expect(responseBody).toHaveProperty('data');
     expect(responseBody.data).toHaveProperty('id');
     expect(typeof responseBody.data.id).toBe('string');
-    expect(responseBody.data).toHaveProperty('name', requestBody.name);
-    expect(responseBody.data).toHaveProperty('email', requestBody.email);
+    expect(responseBody.data).toHaveProperty('name', registerPayload.name);
+    expect(responseBody.data).toHaveProperty('email', registerPayload.email);
   });
 
   test('should login with the registered user successfully', async ({ request }) => {
-    const loginBody = {
-      email: registeredUser.email,
-      password: registeredUser.password,
-    };
-
     const response = await request.post(loginUrl, {
-      data: loginBody,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      data: loginPayload,
+      headers: contentTypeHeaders,
     });
 
     const responseBody = await response.json();
@@ -72,10 +67,7 @@ test.describe('Notes Users API Flow', () => {
 
   test('should get user profile with valid token', async ({ request }) => {
     const response = await request.get(profileUrl, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': authToken,
-      },
+      headers: getAuthHeaders(authToken),
     });
 
     const responseBody = await response.json();
@@ -90,18 +82,11 @@ test.describe('Notes Users API Flow', () => {
   });
 
   test('should update the user profile with name, phone, and company', async ({ request }) => {
-    const updatedProfile = {
-      name: `${registeredUser.name}-updated`,
-      phone: '1234567890',
-      company: 'Test Company',
-    };
+    const updatedProfile = generateUpdateProfilePayload(registeredUser.name);
 
     const response = await request.patch(profileUrl, {
       data: updatedProfile,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': authToken,
-      },
+      headers: getAuthHeaders(authToken),
     });
 
     const responseBody = await response.json();
@@ -121,15 +106,11 @@ test.describe('Notes Users API Flow', () => {
   });
 
   test('should send forgot password email with valid email address', async ({ request }) => {
-    const forgotPasswordBody = {
-      email: registeredUser.email,
-    };
+    const forgotPasswordBody = generateForgotPasswordPayload(registeredUser.email);
 
     const response = await request.post(forgotPasswordUrl, {
       data: forgotPasswordBody,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: contentTypeHeaders,
     });
 
     const responseBody = await response.json();
@@ -141,10 +122,7 @@ test.describe('Notes Users API Flow', () => {
 
   test('should logout with valid auth token', async ({ request }) => {
     const response = await request.delete(logoutUrl, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': authToken,
-      },
+      headers: getAuthHeaders(authToken),
     });
 
     const responseBody = await response.json();

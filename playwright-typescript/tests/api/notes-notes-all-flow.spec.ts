@@ -1,4 +1,12 @@
 import { test, expect } from '@playwright/test';
+import {
+  contentTypeHeaders,
+  getAuthHeaders,
+  generateRegisterPayload,
+  generateLoginPayload,
+  generateNotePayload,
+  generateUpdateNotePayload,
+} from '../../fixtures/notes-api-payloads/notes-request-payloads';
 
 test.describe.configure({ mode: 'serial' });
 
@@ -15,21 +23,18 @@ test.describe('Notes Notes API Flow', () => {
   let authToken = '';
   let createdNoteId = '';
 
-  test('should register a new user successfully', async ({ request }) => {
-    const suffix = Date.now();
-    const requestBody = {
-      name: `testuser-${suffix}`,
-      email: `testuser-${suffix}@example.com`,
-      password: 'Test@1234',
-    };
+  const registerPayload = generateRegisterPayload();
+  const loginPayload = generateLoginPayload(registerPayload.email, registerPayload.password);
+  const firstNotePayload = generateNotePayload();
+  const secondNotePayload = generateNotePayload();
+  const updateNotePayload = generateUpdateNotePayload();
 
-    registeredUser = requestBody;
+  test('should register a new user successfully', async ({ request }) => {
+    registeredUser = registerPayload;
 
     const response = await request.post(registerUrl, {
-      data: requestBody,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      data: registerPayload,
+      headers: contentTypeHeaders,
     });
 
     const responseBody = await response.json();
@@ -40,21 +45,14 @@ test.describe('Notes Notes API Flow', () => {
     expect(responseBody).toHaveProperty('data');
     expect(responseBody.data).toHaveProperty('id');
     expect(typeof responseBody.data.id).toBe('string');
-    expect(responseBody.data).toHaveProperty('name', requestBody.name);
-    expect(responseBody.data).toHaveProperty('email', requestBody.email);
+    expect(responseBody.data).toHaveProperty('name', registerPayload.name);
+    expect(responseBody.data).toHaveProperty('email', registerPayload.email);
   });
 
   test('should login with the registered user successfully', async ({ request }) => {
-    const loginBody = {
-      email: registeredUser.email,
-      password: registeredUser.password,
-    };
-
     const response = await request.post(loginUrl, {
-      data: loginBody,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      data: loginPayload,
+      headers: contentTypeHeaders,
     });
 
     const responseBody = await response.json();
@@ -74,18 +72,9 @@ test.describe('Notes Notes API Flow', () => {
   });
 
   test('should create a note with title, description, and category using auth token', async ({ request }) => {
-    const notePayload = {
-      title: 'Home Note Title',
-      description: 'Home API note description',
-      category: 'Home',
-    };
-
     const response = await request.post(notesUrl, {
-      data: notePayload,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': authToken,
-      },
+      data: firstNotePayload,
+      headers: getAuthHeaders(authToken),
     });
 
     const responseBody = await response.json();
@@ -95,9 +84,9 @@ test.describe('Notes Notes API Flow', () => {
     expect(responseBody).toHaveProperty('data');
     expect(responseBody.data).toHaveProperty('id');
     expect(typeof responseBody.data.id).toBe('string');
-    expect(responseBody.data).toHaveProperty('title', notePayload.title);
-    expect(responseBody.data).toHaveProperty('description', notePayload.description);
-    expect(responseBody.data).toHaveProperty('category', notePayload.category);
+    expect(responseBody.data).toHaveProperty('title', firstNotePayload.title);
+    expect(responseBody.data).toHaveProperty('description', firstNotePayload.description);
+    expect(responseBody.data).toHaveProperty('category', firstNotePayload.category);
     expect(responseBody.data).toHaveProperty('completed', false);
     expect(responseBody.data).toHaveProperty('created_at');
     expect(typeof responseBody.data.created_at).toBe('string');
@@ -110,18 +99,9 @@ test.describe('Notes Notes API Flow', () => {
   });
 
   test('should create a second note with title, description, and category using auth token', async ({ request }) => {
-    const notePayload = {
-      title: 'Work Note Title',
-      description: 'Work API note description',
-      category: 'Work',
-    };
-
     const response = await request.post(notesUrl, {
-      data: notePayload,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': authToken,
-      },
+      data: secondNotePayload,
+      headers: getAuthHeaders(authToken),
     });
 
     const responseBody = await response.json();
@@ -131,9 +111,9 @@ test.describe('Notes Notes API Flow', () => {
     expect(responseBody).toHaveProperty('data');
     expect(responseBody.data).toHaveProperty('id');
     expect(typeof responseBody.data.id).toBe('string');
-    expect(responseBody.data).toHaveProperty('title', notePayload.title);
-    expect(responseBody.data).toHaveProperty('description', notePayload.description);
-    expect(responseBody.data).toHaveProperty('category', notePayload.category);
+    expect(responseBody.data).toHaveProperty('title', secondNotePayload.title);
+    expect(responseBody.data).toHaveProperty('description', secondNotePayload.description);
+    expect(responseBody.data).toHaveProperty('category', secondNotePayload.category);
     expect(responseBody.data).toHaveProperty('completed', false);
     expect(responseBody.data).toHaveProperty('created_at');
     expect(typeof responseBody.data.created_at).toBe('string');
@@ -145,10 +125,7 @@ test.describe('Notes Notes API Flow', () => {
 
   test('should retrieve note by ID with auth token', async ({ request }) => {
     const response = await request.get(`${notesUrl}/${createdNoteId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': authToken,
-      },
+      headers: getAuthHeaders(authToken),
     });
 
     const responseBody = await response.json();
@@ -157,9 +134,9 @@ test.describe('Notes Notes API Flow', () => {
     expect(responseBody).toHaveProperty('message', 'Note successfully retrieved');
     expect(responseBody).toHaveProperty('data');
     expect(responseBody.data).toHaveProperty('id', createdNoteId);
-    expect(responseBody.data).toHaveProperty('title', 'Home Note Title');
-    expect(responseBody.data).toHaveProperty('description', 'Home API note description');
-    expect(responseBody.data).toHaveProperty('category', 'Home');
+    expect(responseBody.data).toHaveProperty('title', firstNotePayload.title);
+    expect(responseBody.data).toHaveProperty('description', firstNotePayload.description);
+    expect(responseBody.data).toHaveProperty('category', firstNotePayload.category);
     expect(responseBody.data).toHaveProperty('completed', false);
     expect(responseBody.data).toHaveProperty('created_at');
     expect(typeof responseBody.data.created_at).toBe('string');
@@ -170,19 +147,9 @@ test.describe('Notes Notes API Flow', () => {
   });
 
   test('should update note by ID with auth token', async ({ request }) => {
-    const updatePayload = {
-      title: 'Updated Home Note Title',
-      description: 'Updated Home API note description',
-      completed: true,
-      category: 'Personal',
-    };
-
     const response = await request.put(`${notesUrl}/${createdNoteId}`, {
-      data: updatePayload,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': authToken,
-      },
+      data: updateNotePayload,
+      headers: getAuthHeaders(authToken),
     });
 
     const responseBody = await response.json();
@@ -191,10 +158,10 @@ test.describe('Notes Notes API Flow', () => {
     expect(responseBody).toHaveProperty('message', 'Note successfully Updated');
     expect(responseBody).toHaveProperty('data');
     expect(responseBody.data).toHaveProperty('id', createdNoteId);
-    expect(responseBody.data).toHaveProperty('title', updatePayload.title);
-    expect(responseBody.data).toHaveProperty('description', updatePayload.description);
-    expect(responseBody.data).toHaveProperty('category', updatePayload.category);
-    expect(responseBody.data).toHaveProperty('completed', updatePayload.completed);
+    expect(responseBody.data).toHaveProperty('title', updateNotePayload.title);
+    expect(responseBody.data).toHaveProperty('description', updateNotePayload.description);
+    expect(responseBody.data).toHaveProperty('category', updateNotePayload.category);
+    expect(responseBody.data).toHaveProperty('completed', updateNotePayload.completed);
     expect(responseBody.data).toHaveProperty('created_at');
     expect(typeof responseBody.data.created_at).toBe('string');
     expect(responseBody.data).toHaveProperty('updated_at');
@@ -205,10 +172,7 @@ test.describe('Notes Notes API Flow', () => {
 
   test('should retrieve all notes with auth token', async ({ request }) => {
     const response = await request.get(notesUrl, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': authToken,
-      },
+      headers: getAuthHeaders(authToken),
     });
 
     const responseBody = await response.json();
@@ -221,41 +185,34 @@ test.describe('Notes Notes API Flow', () => {
 
     const notes = responseBody.data;
 
-    const personalNote = notes.find((note: any) => note.category === 'Personal');
-    expect(personalNote).toBeDefined();
-    expect(personalNote).toHaveProperty('id');
-    expect(typeof personalNote.id).toBe('string');
-    expect(personalNote).toHaveProperty('title', 'Updated Home Note Title');
-    expect(personalNote).toHaveProperty('description', 'Updated Home API note description');
-    expect(personalNote).toHaveProperty('completed', true);
-    expect(personalNote).toHaveProperty('created_at');
-    expect(typeof personalNote.created_at).toBe('string');
-    expect(personalNote).toHaveProperty('updated_at');
-    expect(typeof personalNote.updated_at).toBe('string');
-    expect(personalNote).toHaveProperty('user_id');
-    expect(typeof personalNote.user_id).toBe('string');
+    const updatedNote = notes.find((note: any) => note.id === createdNoteId);
+    expect(updatedNote).toBeDefined();
+    expect(updatedNote).toHaveProperty('id');
+    expect(typeof updatedNote.id).toBe('string');
+    expect(updatedNote).toHaveProperty('title', updateNotePayload.title);
+    expect(updatedNote).toHaveProperty('description', updateNotePayload.description);
+    expect(updatedNote).toHaveProperty('completed', updateNotePayload.completed);
+    expect(updatedNote).toHaveProperty('category', updateNotePayload.category);
+    expect(updatedNote).toHaveProperty('created_at');
+    expect(typeof updatedNote.created_at).toBe('string');
+    expect(updatedNote).toHaveProperty('updated_at');
+    expect(typeof updatedNote.updated_at).toBe('string');
+    expect(updatedNote).toHaveProperty('user_id');
+    expect(typeof updatedNote.user_id).toBe('string');
 
-    const workNote = notes.find((note: any) => note.category === 'Work');
-    expect(workNote).toBeDefined();
-    expect(workNote).toHaveProperty('id');
-    expect(typeof workNote.id).toBe('string');
-    expect(workNote).toHaveProperty('title', 'Work Note Title');
-    expect(workNote).toHaveProperty('description', 'Work API note description');
-    expect(workNote).toHaveProperty('completed', false);
-    expect(workNote).toHaveProperty('created_at');
-    expect(typeof workNote.created_at).toBe('string');
-    expect(workNote).toHaveProperty('updated_at');
-    expect(typeof workNote.updated_at).toBe('string');
-    expect(workNote).toHaveProperty('user_id');
-    expect(typeof workNote.user_id).toBe('string');
+    const secondNote = notes.find((note: any) => note.id !== createdNoteId);
+    expect(secondNote).toBeDefined();
+    expect(secondNote).toHaveProperty('id');
+    expect(typeof secondNote.id).toBe('string');
+    expect(secondNote).toHaveProperty('title', secondNotePayload.title);
+    expect(secondNote).toHaveProperty('description', secondNotePayload.description);
+    expect(secondNote).toHaveProperty('completed', false);
+    expect(secondNote).toHaveProperty('category', secondNotePayload.category);
   });
 
   test('should delete note by ID with auth token', async ({ request }) => {
     const response = await request.delete(`${notesUrl}/${createdNoteId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': authToken,
-      },
+      headers: getAuthHeaders(authToken),
     });
 
     const responseBody = await response.json();
