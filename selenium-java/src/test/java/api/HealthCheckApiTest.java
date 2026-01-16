@@ -1,31 +1,32 @@
 package api;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-class HealthCheckApiTest {
+public class HealthCheckApiTest {
 
-  private static final String BASE_URL =
-      System.getenv().getOrDefault("API_URL", "https://practice.expandtesting.com/notes/api");
+  private static final String BASE_URL = System.getenv().getOrDefault("API_URL",
+      "https://practice.expandtesting.com/notes/api");
 
   private static final String HEALTH_CHECK_PATH = "/health-check";
 
-  @BeforeAll
-  static void setup() {
+  @BeforeClass
+  public static void setup() {
     RestAssured.baseURI = BASE_URL;
   }
 
   @Test
-  void shouldReturnSuccessfulHealthCheckResponse() {
+  public void shouldReturnSuccessfulHealthCheckResponse() {
     given()
         .contentType(ContentType.JSON)
-    .when()
+        .when()
         .get(HEALTH_CHECK_PATH)
-    .then()
+        .then()
         .statusCode(200)
         .body("success", equalTo(true))
         .body("message", equalTo("Notes API is Running"));
