@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ExpandTestingInputTest {
 
-    WebDriver driver;
+    private WebDriver driver;
 
     @BeforeMethod
     public void setup() {
