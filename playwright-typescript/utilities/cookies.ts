@@ -16,7 +16,7 @@ const __dirname = path.dirname(__filename);
  */
 export async function acceptCookiesBeforeSession(context: BrowserContext): Promise<void> {
   const cookiesFile = 'accept-cookies.json';
-  const resolvedPath = path.resolve(__dirname, '../cookies', cookiesFile);
+  const resolvedPath = path.resolve(__dirname, '../fixtures/cookies', cookiesFile);
   const cookiesRaw = fs.readFileSync(resolvedPath, 'utf-8');
   const cookies = JSON.parse(cookiesRaw);
 
@@ -39,7 +39,7 @@ export async function acceptCookiesBeforeSession(context: BrowserContext): Promi
  */
 export async function rejectCookiesBeforeSession(context: BrowserContext): Promise<void> {
   const cookiesFile = 'reject-cookies.json';
-  const resolvedPath = path.resolve(__dirname, '../cookies', cookiesFile);
+  const resolvedPath = path.resolve(__dirname, '../fixtures/cookies', cookiesFile);
   const cookiesRaw = fs.readFileSync(resolvedPath, 'utf-8');
   const cookies = JSON.parse(cookiesRaw);
 
