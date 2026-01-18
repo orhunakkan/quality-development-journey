@@ -11,8 +11,8 @@
     "cy:run:firefox": "cypress run --browser firefox",
     "cy:run:edge": "cypress run --browser edge",
     "cy:run:all": "npm run cy:run:chrome && npm run cy:run:firefox && npm run cy:run:edge",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql|vue)\"",
+    "format:check": "prettier --check \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql|vue)\""
   },
   "dependencies": {
     "cypress": "^15.9.0",

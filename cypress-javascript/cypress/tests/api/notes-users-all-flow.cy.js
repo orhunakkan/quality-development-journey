@@ -27,7 +27,7 @@ describe('Notes Users API Flow', () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(201);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('status', 201);
@@ -52,7 +52,7 @@ describe('Notes Users API Flow', () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('status', 200);
@@ -75,7 +75,7 @@ describe('Notes Users API Flow', () => {
         'Content-Type': 'application/json',
         'x-auth-token': authToken,
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('message', 'Profile successful');
@@ -101,7 +101,7 @@ describe('Notes Users API Flow', () => {
         'Content-Type': 'application/json',
         'x-auth-token': authToken,
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('status', 200);
@@ -128,7 +128,7 @@ describe('Notes Users API Flow', () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('message').that.includes('Password reset link successfully sent to');
@@ -143,7 +143,7 @@ describe('Notes Users API Flow', () => {
         'Content-Type': 'application/json',
         'x-auth-token': authToken,
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('message', 'User has been successfully logged out');

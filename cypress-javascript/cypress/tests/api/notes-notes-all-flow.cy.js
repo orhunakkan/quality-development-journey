@@ -26,7 +26,7 @@ describe('Notes Notes API Flow', () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(201);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('status', 201);
@@ -51,7 +51,7 @@ describe('Notes Notes API Flow', () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('status', 200);
@@ -81,7 +81,7 @@ describe('Notes Notes API Flow', () => {
         'Content-Type': 'application/json',
         'x-auth-token': authToken,
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('message', 'Note successfully created');
@@ -114,7 +114,7 @@ describe('Notes Notes API Flow', () => {
         'Content-Type': 'application/json',
         'x-auth-token': authToken,
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('message', 'Note successfully created');
@@ -138,7 +138,7 @@ describe('Notes Notes API Flow', () => {
         'Content-Type': 'application/json',
         'x-auth-token': authToken,
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('message', 'Note successfully retrieved');
@@ -170,7 +170,7 @@ describe('Notes Notes API Flow', () => {
         'Content-Type': 'application/json',
         'x-auth-token': authToken,
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('message', 'Note successfully Updated');
@@ -194,7 +194,7 @@ describe('Notes Notes API Flow', () => {
         'Content-Type': 'application/json',
         'x-auth-token': authToken,
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('message', 'Notes successfully retrieved');
@@ -202,7 +202,7 @@ describe('Notes Notes API Flow', () => {
 
       const notes = response.body.data;
 
-      const personalNote = notes.find(note => note.category === 'Personal');
+      const personalNote = notes.find((note) => note.category === 'Personal');
       expect(personalNote).to.exist;
       expect(personalNote).to.have.property('id').that.is.a('string');
       expect(personalNote).to.have.property('title', 'Updated Home Note Title');
@@ -212,7 +212,7 @@ describe('Notes Notes API Flow', () => {
       expect(personalNote).to.have.property('updated_at').that.is.a('string');
       expect(personalNote).to.have.property('user_id').that.is.a('string');
 
-      const workNote = notes.find(note => note.category === 'Work');
+      const workNote = notes.find((note) => note.category === 'Work');
       expect(workNote).to.exist;
       expect(workNote).to.have.property('id').that.is.a('string');
       expect(workNote).to.have.property('title', 'Work Note Title');
@@ -232,7 +232,7 @@ describe('Notes Notes API Flow', () => {
         'Content-Type': 'application/json',
         'x-auth-token': authToken,
       },
-    }).then(response => {
+    }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('success', true);
       expect(response.body).to.have.property('message', 'Note successfully deleted');

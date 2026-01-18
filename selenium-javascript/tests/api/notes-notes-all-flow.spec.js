@@ -207,7 +207,7 @@ describe('Notes Notes API Flow', () => {
 
     const notes = response.data.data;
 
-    const personalNote = notes.find(note => note.category === 'Personal');
+    const personalNote = notes.find((note) => note.category === 'Personal');
     expect(personalNote).to.exist;
     expect(personalNote).to.have.property('id');
     expect(typeof personalNote.id).to.equal('string');
@@ -221,7 +221,7 @@ describe('Notes Notes API Flow', () => {
     expect(personalNote).to.have.property('user_id');
     expect(typeof personalNote.user_id).to.equal('string');
 
-    const workNote = notes.find(note => note.category === 'Work');
+    const workNote = notes.find((note) => note.category === 'Work');
     expect(workNote).to.exist;
     expect(workNote).to.have.property('id');
     expect(typeof workNote.id).to.equal('string');

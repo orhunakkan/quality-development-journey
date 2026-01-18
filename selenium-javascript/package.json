@@ -13,8 +13,8 @@
     "test:edge": "BROWSER=edge    npx mocha tests/e2e",
     "test:safari": "BROWSER=safari  npx mocha tests/e2e",
     "test:all": "npm run test:chrome && npm run test:firefox && npm run test:edge",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql|vue)\"",
+    "format:check": "prettier --check \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql|vue)\""
   },
   "dependencies": {
     "axios": "^1.13.2",
