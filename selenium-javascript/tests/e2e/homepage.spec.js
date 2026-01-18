@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import DriverManager from '../../utilities/driver.js';
+import { createChromeDriver, quitDriver } from '../../utilities/driver-manager.js';
 import HomePage from '../../pages/homepage.js';
 import dotenv from 'dotenv';
 
@@ -10,13 +10,13 @@ describe('Homepage Test', () => {
   let homePage;
 
   beforeEach(async () => {
-    driver = await DriverManager.getDriver();
+    driver = await createChromeDriver();
     homePage = new HomePage(driver);
     await driver.get(process.env.ENV);
   });
 
   afterEach(async () => {
-    await driver.quit();
+    await quitDriver(driver);
   });
 
   it('should verify the title of the page', async () => {
