@@ -10,7 +10,10 @@
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql|vue)\"",
     "format:check": "prettier --check \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql|vue)\"",
     "lint:check": "eslint --ext .ts",
-    "lint:fix": "eslint --fix --ext .ts"
+    "lint:fix": "eslint --fix --ext .ts",
+    "doc-to-pdf": "tsc --project pw-doc-book/tsconfig.json && node pw-doc-book/dist/index.js",
+    "doc-scrape": "tsc --project pw-doc-book/tsconfig.json && node pw-doc-book/dist/scraper-only.js",
+    "doc-generate": "tsc --project pw-doc-book/tsconfig.json && node pw-doc-book/dist/generator-only.js"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

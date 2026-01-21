@@ -1,0 +1,8 @@
+# Output Directory
+
+This directory contains:
+- `scraped-data.json` - Scraped documentation pages data
+- `playwright-documentation.html` - HTML preview of the documentation
+- `playwright-documentation.pdf` - Final interactive PDF book
+
+Files in this directory are auto-generated and can be safely deleted.
