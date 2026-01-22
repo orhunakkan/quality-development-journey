@@ -1,0 +1,137 @@
+{
+    "realm": "practice-realm",
+    "enabled": true,
+    "users": [
+        {
+            "username": "admin1",
+            "email": "admin1@example.com",
+            "emailVerified": true,
+            "firstName": "Admin",
+            "lastName": "User",
+            "enabled": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "admin1password",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "admin"
+            ],
+            "clientRoles": {}
+        },
+        {
+            "username": "manager1",
+            "email": "manager1@example.com",
+            "emailVerified": true,
+            "firstName": "Manager",
+            "lastName": "User",
+            "enabled": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "manager1password",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "manager"
+            ],
+            "clientRoles": {}
+        },
+        {
+            "username": "reader1",
+            "email": "reader1@example.com",
+            "emailVerified": true,
+            "firstName": "Reader",
+            "lastName": "User",
+            "enabled": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "reader1password",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "reader"
+            ],
+            "clientRoles": {}
+        }
+    ],
+    "roles": {
+        "realm": [
+            {
+                "name": "admin",
+                "description": "Administrator role"
+            },
+            {
+                "name": "manager",
+                "description": "Manager role"
+            },
+            {
+                "name": "reader",
+                "description": "Reader role"
+            }
+        ]
+    },
+    "clients": [
+        {
+            "clientId": "practice-app",
+            "name": "Practice App",
+            "description": "Enterprise practice OIDC application",
+            "enabled": true,
+            "protocol": "openid-connect",
+            "accessType": "confidential",
+            "publicClient": false,
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": false,
+            "secret": "practice-app-secret-change-in-production",
+            "redirectUris": [
+                "http://localhost:3000/auth/callback"
+            ],
+            "webOrigins": [
+                "http://localhost:3000"
+            ],
+            "postLogoutRedirectUris": [
+                "http://localhost:3000/"
+            ],
+            "frontchannelLogout": true,
+            "fullScopeAllowed": true,
+            "protocolMappers": [
+                {
+                    "name": "email",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-usermodel-attribute-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "userinfo.token.claim": "true",
+                        "user.attribute": "email",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true",
+                        "claim.name": "email",
+                        "jsonType.label": "String"
+                    }
+                },
+                {
+                    "name": "roles",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-usermodel-realm-role-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "userinfo.token.claim": "true",
+                        "multivalued": "true",
+                        "user.attribute": "foo",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true",
+                        "claim.name": "realm_access.roles",
+                        "jsonType.label": "String"
+                    }
+                }
+            ]
+        }
+    ]
+}
