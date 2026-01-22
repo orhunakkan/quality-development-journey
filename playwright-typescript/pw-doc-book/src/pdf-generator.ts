@@ -19,7 +19,7 @@ export class PDFGenerator {
     private tocGenerator: TOCGenerator,
     private styleGenerator: StyleGenerator,
     private logger: Logger
-  ) { }
+  ) {}
 
   async initialize(): Promise<void> {
     this.browser = await chromium.launch({ headless: true });
@@ -81,9 +81,7 @@ export class PDFGenerator {
         </head>
         <body>
           ${this.tocGenerator.generate(sortedPages)}
-          ${sortedPages.map((docPage, index) =>
-        this.processContent(docPage.content, docPage.url, `page-${index}`, urlToIdMap)
-      ).join('\n')}
+          ${sortedPages.map((docPage, index) => this.processContent(docPage.content, docPage.url, `page-${index}`, urlToIdMap)).join('\n')}
         </body>
         </html>
       `;
@@ -108,10 +106,10 @@ export class PDFGenerator {
           top: this.pdfConfig.margins.top,
           right: this.pdfConfig.margins.right,
           bottom: this.pdfConfig.margins.bottom,
-          left: this.pdfConfig.margins.left
+          left: this.pdfConfig.margins.left,
         },
         displayHeaderFooter: this.pdfConfig.displayHeaderFooter,
-        preferCSSPageSize: this.pdfConfig.preferCSSPageSize
+        preferCSSPageSize: this.pdfConfig.preferCSSPageSize,
       });
 
       this.logger.info(`Generated PDF: ${outputPath}`);

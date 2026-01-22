@@ -1,16 +1,16 @@
 import { StyleConfig, PDFConfig } from '../config/app-config.js';
 
 export class StyleGenerator {
-    constructor(
-        private styleConfig: StyleConfig,
-        private pdfConfig: PDFConfig
-    ) { }
+  constructor(
+    private styleConfig: StyleConfig,
+    private pdfConfig: PDFConfig
+  ) {}
 
-    generateStyles(): string {
-        const { backgroundColor, textColor, codeBackgroundColor, codeTextColor, linkColor, columnCount, columnGap } = this.styleConfig;
-        const { margins } = this.pdfConfig;
+  generateStyles(): string {
+    const { backgroundColor, textColor, codeBackgroundColor, codeTextColor, linkColor, columnCount, columnGap } = this.styleConfig;
+    const { margins } = this.pdfConfig;
 
-        return `
+    return `
       <style>
         @page {
           size: A4;
@@ -301,5 +301,5 @@ export class StyleGenerator {
         }
       </style>
     `;
-    }
+  }
 }

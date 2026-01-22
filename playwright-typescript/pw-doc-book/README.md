@@ -30,11 +30,13 @@ npm run doc-to-pdf
 ### Or run individual steps:
 
 **Scrape documentation only:**
+
 ```bash
 npm run doc-scrape
 ```
 
 **Generate PDF from scraped data:**
+
 ```bash
 npm run doc-generate
 ```
