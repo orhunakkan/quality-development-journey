@@ -16,21 +16,27 @@
     "doc-generate": "tsc --project pw-doc-book/tsconfig.json && node pw-doc-book/dist/generator-only.js",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "monitor": "node pw-doc-monitor/dist/cli.js monitor:run"
   },
   "dependencies": {
+    "commander": "^12.1.0",
     "dotenv": "^17.2.3",
-    "playwright": "^1.57.0"
+    "pg": "^8.12.0",
+    "playwright": "^1.57.0",
+    "winston": "^3.14.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.1.0",
     "@playwright/test": "^1.57.0",
     "@types/node": "^24.10.1",
+    "@types/pg": "^8.11.6",
     "@typescript-eslint/parser": "^8.47.0",
     "@vitest/ui": "^2.1.8",
     "eslint": "^9.39.1",
     "eslint-plugin-playwright": "^2.3.0",
     "prettier": "^3.6.2",
+    "typescript": "^5.6.3",
     "vitest": "^2.1.8"
   }
 }
