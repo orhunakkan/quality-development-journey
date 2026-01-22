@@ -4,10 +4,11 @@ This application scrapes the official Playwright documentation and converts it i
 
 ## Features
 
-- 🌐 **Complete Documentation Scraping**: Crawls all pages from the Playwright documentation
-- 🎨 **Dark Theme Preserved**: Maintains the Playwright documentation's dark mode appearance
-- 🔗 **Interactive Links**: All internal and external links are preserved in the PDF
-- 📚 **Table of Contents**: Automatically generated TOC for easy navigation
+- 🌐 **Complete Documentation Scraping**: Crawls all pages from the Playwright documentation (139 pages)
+- 🎨 **Dark Theme Preserved**: Maintains the Playwright documentation's dark mode appearance with improved code visibility
+- 🔗 **Interactive Links**: All internal and external links are preserved and working in the PDF
+- 📚 **Smart Table of Contents**: 3-column layout with automatic separation of regular docs and API reference
+- 🧹 **Clean Content**: Removes navigation elements, broken images, and unnecessary icons
 - 💾 **Intermediate Caching**: Saves scraped data as JSON for faster regeneration
 
 ## Installation
@@ -58,24 +59,31 @@ You can modify the scraper behavior in `src/scraper.ts`:
 
 The PDF styling is configured in `src/pdf-generator.ts` in the `getPlaywrightStyles()` method. It includes:
 
-- Dark background (#1b1b1d)
-- Syntax highlighting colors
-- Code block styling
-- Table formatting
-- Link colors (#4fc3f7)
+- Dark background (#1b1b1d) with proper book margins (50px)
+- Enhanced syntax highlighting colors for better code readability
+- Code block styling with light text for visibility
+- Table formatting optimized for dark theme
+- Link colors (#4fc3f7) that work both internally and externally
+- 3-column table of contents with visual column separators
 
 ## How It Works
 
 1. **Scraper** (`scraper.ts`):
-   - Starts from the intro page
-   - Extracts content and finds all documentation links
+   - Starts from the intro page (https://playwright.dev/docs/intro)
+   - Extracts HTML content and finds all documentation links
    - Recursively visits all unique documentation pages
-   - Saves page content, title, and URL
+   - Saves page content, title, and URL in order
 
-2. **PDF Generator** (`pdf-generator.ts`):
-   - Creates an HTML document with dark theme CSS
-   - Generates a table of contents
-   - Converts internal links to work in PDF
+2. **Content Processing** (`pdf-generator.ts`):
+   - Removes all images, navigation elements, and unnecessary icons
+   - Cleans page titles (removes "| Playwright" suffix)
+   - Converts internal doc links to work as PDF anchors
+   - Preserves external links
+
+3. **PDF Generation** (`pdf-generator.ts`):
+   - Creates a 3-column table of contents with API reference distinction
+   - Applies Playwright's dark theme styling with enhanced readability
+   - Generates PDF with proper book margins and syntax highlighting
    - Uses Playwright's PDF generation with print backgrounds
 
 ## Technical Details
@@ -88,8 +96,9 @@ The PDF styling is configured in `src/pdf-generator.ts` in the `getPlaywrightSty
 ## Limitations
 
 - PDF links work best in modern PDF readers (Adobe Acrobat, Chrome, Edge)
-- Some dynamic content may not be captured
-- Very large documentation may take time to scrape
+- Very large documentation may take time to scrape (typically a few minutes for 139 pages)
+- Some dynamically-loaded content may not be captured
+- External links in PDF open in new tabs/windows depending on PDF reader
 
 ## Customization
 

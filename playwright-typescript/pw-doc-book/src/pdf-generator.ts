@@ -27,7 +27,7 @@ export class PDFGenerator {
       <style>
         @page {
           size: A4;
-          margin: 40px 20px;
+          margin: 50px 50px;
           background-color: #1b1b1d;
         }
 
@@ -235,43 +235,70 @@ export class PDFGenerator {
         }
 
         .toc {
-          margin: 40px 0;
+          margin: 0;
+          padding: 0;
         }
 
         .toc h1 {
           text-align: center;
+          margin: 0 0 10px 0;
+          font-size: 1.8em;
+        }
+
+        .toc p {
+          text-align: center;
+          margin: 0 0 30px 0;
+          font-size: 0.9em;
+        }
+
+        .toc-content {
+          column-count: 3;
+          column-gap: 25px;
+          column-rule: 1px solid #404040;
+        }
+
+        .toc-section {
+          break-inside: avoid;
+          min-height: 0;
+          page-break-inside: avoid;
         }
 
         .toc ul {
           list-style-type: none;
           padding-left: 0;
+          margin: 0;
         }
 
         .toc li {
-          margin: 6px 0;
-        }
-
-        .toc li.api-section {
-          margin-top: 12px;
-          padding-top: 8px;
-          border-top: 1px solid #404040;
-        }
-
-        .toc li.api-section:first-of-type {
-          margin-top: 20px;
+          margin: 3px 0;
+          font-size: 0.92em;
+          line-height: 1.3;
         }
 
         .toc li.api-label {
-          font-size: 0.9em;
+          margin-top: 16px;
+          margin-bottom: 8px;
+          padding-top: 8px;
+          border-top: 1px solid #404040;
+          font-size: 0.85em;
           color: #888;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
 
+        .toc li.api-section {
+          margin: 2px 0;
+        }
+
         .toc a {
           color: #4fc3f7;
-          font-size: 1em;
+          font-size: inherit;
+          text-decoration: none;
+        }
+
+        .toc a:hover {
+          text-decoration: underline;
         }
 
         .page-header {
@@ -304,11 +331,12 @@ export class PDFGenerator {
     let tocHtml = `
       <div class="toc">
         <h1>Playwright Documentation</h1>
-        <p style="text-align: center; color: #888;">Interactive PDF Book</p>
-        <ul>
+        <p>Interactive PDF Book</p>
+        <div class="toc-content">
+          <ul>
     `;
 
-    // Add regular docs
+    // Add all regular docs
     if (regularPages.length > 0) {
       tocHtml += regularPages.map((page) => `
             <li>
@@ -320,7 +348,7 @@ export class PDFGenerator {
     // Add API reference section
     if (apiPages.length > 0) {
       tocHtml += `
-            <li class="api-label api-section">API Reference</li>
+            <li class="api-label">API Reference</li>
       `;
       tocHtml += apiPages.map((page) => `
             <li class="api-section">
@@ -330,7 +358,8 @@ export class PDFGenerator {
     }
 
     tocHtml += `
-        </ul>
+          </ul>
+        </div>
       </div>
       <div class="page-break"></div>
     `;
