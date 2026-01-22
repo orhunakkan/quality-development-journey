@@ -4,12 +4,15 @@ This application scrapes the official Playwright documentation and converts it i
 
 ## Features
 
-- 🌐 **Complete Documentation Scraping**: Crawls all pages from the Playwright documentation (139 pages)
+- 🌐 **Complete Documentation Scraping**: Crawls all pages from the Playwright documentation (138+ pages)
 - 🎨 **Dark Theme Preserved**: Maintains the Playwright documentation's dark mode appearance with improved code visibility
 - 🔗 **Interactive Links**: All internal and external links are preserved and working in the PDF
 - 📚 **Smart Table of Contents**: 3-column layout with automatic separation of regular docs and API reference
 - 🧹 **Clean Content**: Removes navigation elements, broken images, and unnecessary icons
 - 💾 **Intermediate Caching**: Saves scraped data as JSON for faster regeneration
+- 🧪 **Unit Tested**: Comprehensive test coverage with Vitest for core utilities
+- 🏗️ **Modular Architecture**: Dependency injection, configuration management, and structured logging
+- 🔄 **Resilience**: Automatic retry logic with exponential backoff for failed requests
 
 ## Installation
 
@@ -41,6 +44,12 @@ npm run doc-scrape
 npm run doc-generate
 ```
 
+**Run unit tests:**
+
+```bash
+npm test
+```
+
 ## Output
 
 The application generates files in the `pw-doc-book/output/` directory:
@@ -51,11 +60,14 @@ The application generates files in the `pw-doc-book/output/` directory:
 
 ## Configuration
 
-You can modify the scraper behavior in `src/scraper.ts`:
+All application settings are centralized in `src/config/app-config.ts` with the following configurable sections:
 
-- **Start URL**: Change the landing page (default: `https://playwright.dev/docs/intro`)
-- **Base URL**: Modify the documentation base URL
-- **Filtering**: Adjust `isValidDocUrl()` to include/exclude specific pages
+- **ScraperConfig**: Retry attempts, timeout, and request delays
+- **PDFConfig**: Margins, format (A4), and print backgrounds
+- **StyleConfig**: Colors, fonts, columns for the PDF layout
+- **OutputConfig**: File paths for output files
+
+To modify behavior, update the `defaultConfig` object in `src/config/app-config.ts`.
 
 ## Styling
 
@@ -68,24 +80,73 @@ The PDF styling is configured in `src/pdf-generator.ts` in the `getPlaywrightSty
 - Link colors (#4fc3f7) that work both internally and externally
 - 3-column table of contents with visual column separators
 
+## Architecture
+
+The application follows clean architecture principles with separation of concerns:
+
+### Core Modules
+
+- **`src/scraper.ts`**: Main scraper using dependency injection and retry logic
+- **`src/pdf-generator.ts`**: PDF generation with content cleaning and link processing
+- **`src/config/app-config.ts`**: Centralized configuration management
+- **`src/utils/`**: Modular utilities for specific concerns:
+  - `url-manager.ts` - URL validation and normalization
+  - `logger.ts` - Structured logging with context
+  - `retry.ts` - Automatic retry with exponential backoff
+  - `content-cleaner.ts` - HTML content sanitization
+  - `link-processor.ts` - Internal/external link conversion
+  - `title-cleaner.ts` - Page title cleanup
+- **`src/generators/`**: PDF generation helpers:
+  - `toc-generator.ts` - Table of contents generation
+  - `style-generator.ts` - CSS styling for the PDF
+- **`src/__tests__/`**: Unit tests covering all utilities (27 tests)
+
+### Design Patterns
+
+- **Dependency Injection**: All classes receive dependencies via constructor
+- **Modular Design**: Each utility has a single responsibility
+- **Configuration Management**: All settings in one centralized location
+- **Error Handling**: Retry logic with exponential backoff for resilience
+- **Structured Logging**: Context-aware logging for debugging
+
+## Testing
+
+Run the test suite with:
+
+```bash
+npm test
+```
+
+Current test coverage (27 tests):
+- URL Manager: URL validation and normalization
+- Title Cleaner: Title text processing
+- Content Cleaner: HTML content sanitization
+- Link Processor: Link conversion and URL mapping
+
+Tests are written with Vitest and can be extended for additional modules.
+
 ## How It Works
 
-1. **Scraper** (`scraper.ts`):
+1. **Scraper** (`src/scraper.ts`):
    - Starts from the intro page (https://playwright.dev/docs/intro)
+   - Uses retry logic with exponential backoff for resilience
    - Extracts HTML content and finds all documentation links
    - Recursively visits all unique documentation pages
    - Saves page content, title, and URL in order
+   - Logs structured information about progress and errors
 
-2. **Content Processing** (`pdf-generator.ts`):
-   - Removes all images, navigation elements, and unnecessary icons
-   - Cleans page titles (removes "| Playwright" suffix)
-   - Converts internal doc links to work as PDF anchors
-   - Preserves external links
+2. **Content Processing** (`src/pdf-generator.ts`):
+   - Uses `ContentCleaner` to remove images, navigation, and unnecessary elements
+   - Uses `TitleCleaner` to normalize page titles
+   - Uses `LinkProcessor` to convert internal doc links to PDF anchors
+   - Preserves external links for reference
+   - Tracks and reports any processing issues
 
-3. **PDF Generation** (`pdf-generator.ts`):
-   - Creates a 3-column table of contents with API reference distinction
-   - Applies Playwright's dark theme styling with enhanced readability
-   - Generates PDF with proper book margins and syntax highlighting
+3. **PDF Generation** (`src/pdf-generator.ts`):
+   - Uses `TOCGenerator` to create a 3-column table of contents
+   - Distinguishes API reference pages from regular documentation
+   - Uses `StyleGenerator` to apply Playwright's dark theme with enhanced readability
+   - Generates PDF with proper book margins (50px) and syntax highlighting
    - Uses Playwright's PDF generation with print backgrounds
 
 ## Technical Details
@@ -98,7 +159,7 @@ The PDF styling is configured in `src/pdf-generator.ts` in the `getPlaywrightSty
 ## Limitations
 
 - PDF links work best in modern PDF readers (Adobe Acrobat, Chrome, Edge)
-- Very large documentation may take time to scrape (typically a few minutes for 139 pages)
+- Documentation scraping may take a few minutes for 138+ pages
 - Some dynamically-loaded content may not be captured
 - External links in PDF open in new tabs/windows depending on PDF reader
 
