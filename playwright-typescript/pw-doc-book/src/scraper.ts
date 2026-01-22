@@ -1,8 +1,12 @@
 import { chromium, Browser, Page } from 'playwright';
 import * as fs from 'fs/promises';
 import * as path from 'path';
+import { ScraperConfig } from './config/app-config.js';
+import { UrlManager } from './utils/url-manager.js';
+import { Logger } from './utils/logger.js';
+import { retryAsync } from './utils/retry.js';
 
-interface DocPage {
+export interface DocPage {
     url: string;
     title: string;
     content: string;
@@ -13,32 +17,24 @@ export class PlaywrightDocScraper {
     private browser: Browser | null = null;
     private visitedUrls: Set<string> = new Set();
     private pages: DocPage[] = [];
-    private baseUrl = 'https://playwright.dev';
-    private docsPath = '/docs/';
+    private failedPages: Array<{ url: string; error: string }> = [];
+
+    constructor(
+        private config: ScraperConfig,
+        private urlManager: UrlManager,
+        private logger: Logger
+    ) { }
 
     async initialize(): Promise<void> {
-        this.browser = await chromium.launch({ headless: true });
+        this.browser = await chromium.launch({ headless: this.config.headless });
+        this.logger.info('Browser initialized');
     }
 
     async close(): Promise<void> {
         if (this.browser) {
             await this.browser.close();
+            this.logger.info('Browser closed');
         }
-    }
-
-    private isValidDocUrl(url: string): boolean {
-        const urlObj = new URL(url, this.baseUrl);
-        return (
-            urlObj.hostname === 'playwright.dev' &&
-            urlObj.pathname.startsWith(this.docsPath) &&
-            !urlObj.pathname.includes('#')
-        );
-    }
-
-    private normalizeUrl(url: string): string {
-        const urlObj = new URL(url, this.baseUrl);
-        urlObj.hash = '';
-        return urlObj.href;
     }
 
     async scrapePage(url: string, order: number): Promise<void> {
@@ -46,34 +42,42 @@ export class PlaywrightDocScraper {
             throw new Error('Browser not initialized');
         }
 
-        const normalizedUrl = this.normalizeUrl(url);
+        const normalizedUrl = this.urlManager.normalizeUrl(url);
 
         if (this.visitedUrls.has(normalizedUrl)) {
             return;
         }
 
-        console.log(`Scraping: ${normalizedUrl}`);
+        this.logger.info(`Scraping: ${normalizedUrl}`);
         this.visitedUrls.add(normalizedUrl);
 
         const page = await this.browser.newPage();
 
         try {
-            await page.goto(normalizedUrl, { waitUntil: 'networkidle' });
-
-            // Wait for content to load
-            await page.waitForSelector('article', { timeout: 10000 });
+            await retryAsync(
+                async () => {
+                    await page.goto(normalizedUrl, {
+                        waitUntil: 'networkidle',
+                        timeout: this.config.timeout
+                    });
+                    await page.waitForSelector('article', { timeout: this.config.timeout });
+                },
+                {
+                    maxRetries: this.config.maxRetries,
+                    retryDelay: this.config.retryDelay,
+                    logger: this.logger
+                },
+                `Scraping ${normalizedUrl}`
+            );
 
             // Get page title
             const title = await page.title();
 
-            // Get the main content including styles
+            // Get the main content
             const content = await page.evaluate(() => {
                 const article = document.querySelector('article');
                 if (!article) return '';
-
-                // Clone the article to avoid modifying the original
                 const clone = article.cloneNode(true) as HTMLElement;
-
                 return clone.outerHTML;
             });
 
@@ -91,19 +95,32 @@ export class PlaywrightDocScraper {
                 return anchors
                     .map(a => (a as HTMLAnchorElement).href)
                     .filter(href => href.includes(docsPath));
-            }, this.docsPath);
+            }, this.config.docsPath);
 
             // Recursively scrape linked pages
             const uniqueLinks = [...new Set(links)];
             for (let i = 0; i < uniqueLinks.length; i++) {
                 const link = uniqueLinks[i];
-                if (this.isValidDocUrl(link)) {
-                    await this.scrapePage(link, this.pages.length);
+                if (this.urlManager.isValidDocUrl(link)) {
+                    try {
+                        await this.scrapePage(link, this.pages.length);
+                    } catch (error) {
+                        this.logger.error(`Failed to scrape linked page: ${link}`, error);
+                        this.failedPages.push({
+                            url: link,
+                            error: (error as Error).message
+                        });
+                    }
                 }
             }
 
         } catch (error) {
-            console.error(`Error scraping ${normalizedUrl}:`, error);
+            this.logger.error(`Error scraping ${normalizedUrl}`, error);
+            this.failedPages.push({
+                url: normalizedUrl,
+                error: (error as Error).message
+            });
+            throw error;
         } finally {
             await page.close();
         }
@@ -114,7 +131,15 @@ export class PlaywrightDocScraper {
 
         try {
             await this.scrapePage(startUrl, 0);
-            console.log(`\nScraped ${this.pages.length} pages`);
+            this.logger.info(`Scraped ${this.pages.length} pages successfully`);
+
+            if (this.failedPages.length > 0) {
+                this.logger.warn(
+                    `Failed to scrape ${this.failedPages.length} pages`,
+                    this.failedPages
+                );
+            }
+
             return this.pages;
         } finally {
             await this.close();
@@ -128,10 +153,14 @@ export class PlaywrightDocScraper {
             JSON.stringify(this.pages, null, 2),
             'utf-8'
         );
-        console.log(`Saved scraped data to ${outputPath}`);
+        this.logger.info(`Saved scraped data to ${outputPath}`);
     }
 
     getPages(): DocPage[] {
         return this.pages;
+    }
+
+    getFailedPages(): Array<{ url: string; error: string }> {
+        return this.failedPages;
     }
 }
